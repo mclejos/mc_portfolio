@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Mark Christian Alejos (MC) - Information Technology Student & Developer Portfolio. Exploring ideas through design and code.">
+  <title>MC | Mark Christian Alejos - Portfolio</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+       NAVBAR
+       ========================================================================== -->
+  <header class="master-navbar" id="navbar">
+    <!-- .nav-left: Contains the "MC" logo -->
+    <div class="nav-left">
+      <a href="#hero" class="nav-brand" aria-label="Mark Christian (MC) Portfolio">
+        <span>MC</span>
+      </a>
+    </div>
+
+    <!-- .nav-center: Contains the navigation links and scroll progress indicator -->
+    <nav class="nav-center nav-links" id="nav-links" aria-label="Primary Navigation">
+      <a href="#about" class="nav-link active">About</a>
+      <a href="#education" class="nav-link">Education</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#extracurriculars" class="nav-link">Extracurriculars</a>
+      <a href="#contact" class="nav-link">Contacts</a>
+      <!-- Scroll Progress Indicator -->
+      <div class="nav-progress-bar" id="navProgressBar" aria-hidden="true"></div>
+    </nav>
+
+    <!-- .nav-right: Contains the "Let's talk" button and the Night Mode toggle -->
+    <div class="nav-right nav-actions">
+      <!-- Let's Talk CTA button -->
+      <a href="#contact" class="btn-lets-talk">
+        <span class="status-dot"></span>
+        <span>Let's talk</span>
+      </a>
+
+      <!-- Dual Theme Toggle (Half Moon / Sun Icon) -->
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+
+      <!-- Mobile Drawer Menu Button -->
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION (LANDING PAGE)
+         ========================================================================== -->
+    <section class="hero" id="hero">
+      <div class="container hero-main">
+        <!-- Left Content (Clean Typography Focus) -->
+        <div class="hero-text-col">
+          <!-- 1. Upper Index Tag -->
+          <div class="hero-tag">
+            <span class="dash"></span>
+            <span>PERSONAL PORTFOLIO</span>
+            <span class="num">01 / 07</span>
+          </div>
+
+          <!-- 2. Headline: Clean Stacked Display -->
+          <h1 class="hero-headline">
+            <span class="name-line">Mark Christian</span>
+            <span class="name-line name-highlight">Alejos</span>
+          </h1>
+
+          <!-- 3. Bio Paragraph -->
+          <p class="hero-bio">
+            Welcome to my corner of the web. I'm Mark, an Information Technology student exploring ideas through design
+            and code.
+          </p>
+
+          <!-- 4. Action Button Group -->
+          <div class="hero-btn-group">
+            <a href="assets/Mark_Christian-Alejos-CV.pdf" download="Mark_Christian-Alejos-CV.pdf"
+              class="btn-resume-lime" aria-label="Download Mark Christian Alejos CV">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>View CV</span>
+            </a>
+            <a href="#contact" class="btn-message-ghost">
+              <span>Message Me ✉</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Visual: Open Centerpiece with Orbital Rings & Grouped Nametag Badge -->
+        <div class="hero-graphic-col">
+          <div class="orbit-system">
+            <div class="orbit-glow"></div>
+            <!-- Raw image centered inside the orbital rings with bottom gradient fade into dark background -->
+            <img src="assets/images/avatar.jpg" alt="Mark Christian Alejos" class="hero-centerpiece-img"
+              loading="eager">
+            <div class="orbit-ellipse-1"></div>
+            <div class="orbit-ellipse-2"></div>
+            <div class="orbit-planet-1"></div>
+            <div class="orbit-planet-2"></div>
+
+            <!-- Interactive Glowing Tech Stack Stars (8 Celestial Nodes with Tooltip Logos) -->
+            <!-- 1. JavaScript -->
+            <button class="hobby-star star-1 star-js" type="button" aria-label="Technology: JavaScript">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15">
+                    <rect width="32" height="32" rx="5" fill="#F7DF1E"/>
+                    <path d="M18.8 23.5c.7.4 1.7.7 2.7.7 1.4 0 2.2-.7 2.2-1.7 0-1.1-.8-1.5-2.2-2.1-1.9-.8-3.1-1.8-3.1-3.6 0-1.9 1.4-3.3 3.6-3.3 1.1 0 1.9.3 2.5.6l-.6 1.8c-.5-.3-1.1-.5-1.9-.5-1 0-1.6.6-1.6 1.4 0 .9.7 1.3 2 1.9 2.1.9 3.3 1.8 3.3 3.8 0 2.1-1.6 3.5-4.2 3.5-1.3 0-2.3-.3-3-.7l.7-1.8zM14.4 13.7v8.5c0 1.5-.9 2.2-2.3 2.2-.8 0-1.5-.2-2-.5l.5-1.8c.4.2.8.4 1.3.4.6 0 1-.3 1-1.1v-7.7h1.5z" fill="#000"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">JavaScript</span>
+              </span>
+            </button>
+
+            <!-- 2. Python -->
+            <button class="hobby-star star-2 star-python" type="button" aria-label="Technology: Python">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15">
+                    <path d="M15.9 3C9.7 3 10.1 5.7 10.1 5.7L10.1 8.5H16.1V9.4H7.8C1.7 9.4 1.7 15.6 1.7 15.6C1.7 19.3 4.2 20.4 6.7 20.4L8.3 20.4V17.9C8.3 15 10.8 15 10.8 15H16.8C19.7 15 19.7 12.3 19.7 12.3V5.8C19.7 3 15.9 3 15.9 3ZM13.3 4.7C13.9 4.7 14.4 5.2 14.4 5.8C14.4 6.4 13.9 6.9 13.3 6.9C12.7 6.9 12.2 6.4 12.2 5.8C12.2 5.2 12.7 4.7 13.3 4.7Z" fill="#3776AB"/>
+                    <path d="M16.1 29C22.3 29 21.9 26.3 21.9 26.3L21.9 23.5H15.9V22.6H24.2C30.3 22.6 30.3 16.4 30.3 16.4C30.3 12.7 27.8 11.6 25.3 11.6L23.7 11.6V14.1C23.7 17 21.2 17 21.2 17H15.2C12.3 17 12.3 19.7 12.3 19.7V26.2C12.3 29 16.1 29 16.1 29ZM18.7 27.3C18.1 27.3 17.6 26.8 17.6 26.2C17.6 25.6 18.1 25.1 18.7 25.1C19.3 25.1 19.8 25.6 19.8 26.2C19.8 26.8 19.3 27.3 18.7 27.3Z" fill="#FFD43B"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">Python</span>
+              </span>
+            </button>
+
+            <!-- 3. Java -->
+            <button class="hobby-star star-3 star-java" type="button" aria-label="Technology: Java">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15" fill="none">
+                    <path d="M12.5 25.2c2.5.3 6.8.4 10.3-.9 0 0-1.2.9-3.2 1.3-4.7 1-10.1.5-12.8-.2.7-.2 3.1-.3 5.7-.2z" fill="#E76F00"/>
+                    <path d="M10.8 22.4c2.5.2 7 .5 10.5-.7 0 0-1.5.7-3.4 1-5 1-10.8.6-13.6-.1.6-.2 3.5-.3 6.5-.2z" fill="#E76F00"/>
+                    <path d="M17.4 18.8c1.8-2 2.6-3.8 2.6-3.8s-2 1-4.2 2.3c-2.7 1.6-4.5 3.3-3.6 5.2.9 2 4.4 2.3 8.3 1.2 0 0-1.7.5-3.8.5-3.3 0-5.8-1.5-4.7-3.2 1-1.7 3.5-1.9 5.4-2.2z" fill="#5382A1"/>
+                    <path d="M21.5 13.9c1.3-1.5 1.8-3.1 1.8-3.1s-1.8 1-3.6 2.1c-2.4 1.5-3.7 2.8-2.6 4.3.9 1.4 3.7 1.5 6.4.7 0 0-1.4.5-3 .5-2.6 0-4.4-1-3.4-2.4 1-1.3 2.7-1.5 4.4-2.1z" fill="#E76F00"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">Java</span>
+              </span>
+            </button>
+
+            <!-- 4. C++ -->
+            <button class="hobby-star star-4 star-cpp" type="button" aria-label="Technology: C++">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15">
+                    <polygon points="16,2 29,9.5 29,24.5 16,32 3,24.5 3,9.5" fill="#00599C"/>
+                    <path d="M16 11c-3.3 0-5.5 2.2-5.5 5s2.2 5 5.5 5c1.8 0 3.2-.8 3.9-1.8l-1.8-1.2c-.5.6-1.3 1-2.1 1-1.8 0-3-1.2-3-3s1.2-3 3-3c.8 0 1.6.4 2.1 1l1.8-1.2c-.7-1-2.1-1.8-3.9-1.8z" fill="#fff"/>
+                    <path d="M21 15v-2h1.5v2H24v1.5h-1.5v2H21v-2h-1.5V15H21zm5 0v-2h1.5v2H29v1.5h-1.5v2H26v-2h-1.5V15H26z" fill="#004482"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">C++</span>
+              </span>
+            </button>
+
+            <!-- 5. R -->
+            <button class="hobby-star star-5 star-r" type="button" aria-label="Technology: R">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15">
+                    <ellipse cx="14.5" cy="16" rx="13.5" ry="9.5" fill="#CBDBE6"/>
+                    <ellipse cx="14" cy="16" rx="9" ry="6" fill="#FFFFFF"/>
+                    <path d="M15 10h4.5c3.5 0 5.5 1.5 5.5 4 0 2-1.3 3.3-3.2 3.8L26 23h-4.2l-3.3-4.5H17.8V23H15V10zm2.8 6h1.7c1.7 0 2.5-.7 2.5-1.8 0-1.2-.8-1.7-2.5-1.7h-1.7V16z" fill="#276DC3"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">R</span>
+              </span>
+            </button>
+
+            <!-- 6. MySQL -->
+            <button class="hobby-star star-6 star-mysql" type="button" aria-label="Technology: MySQL">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15" fill="none">
+                    <path d="M16 4C9.4 4 4 7.6 4 12c0 4.4 5.4 8 12 8s12-3.6 12-8c0-4.4-5.4-8-12-8z" fill="#00758F"/>
+                    <path d="M4 12v5c0 4.4 5.4 8 12 8s12-3.6 12-8v-5c0 4.4-5.4 8-12 8S4 16.4 4 12z" fill="#F29111"/>
+                    <path d="M4 19v5c0 4.4 5.4 8 12 8s12-3.6 12-8v-5c0 4.4-5.4 8-12 8S4 23.4 4 19z" fill="#00758F"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">MySQL</span>
+              </span>
+            </button>
+
+            <!-- 7. Figma -->
+            <button class="hobby-star star-7 star-figma" type="button" aria-label="Technology: Figma">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15" fill="none">
+                    <path d="M11 6h5v5h-5a2.5 2.5 0 1 1 0-5z" fill="#F24E1E"/>
+                    <path d="M16 6h5a2.5 2.5 0 0 1 0 5h-5V6z" fill="#FF7262"/>
+                    <path d="M11 11h5v5h-5a2.5 2.5 0 1 1 0-5z" fill="#A259FF"/>
+                    <path d="M16 11h5a2.5 2.5 0 1 1-5 0z" fill="#1ABCFE"/>
+                    <path d="M11 16h5v2.5a2.5 2.5 0 1 1-5 0V16z" fill="#0ACF83"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">Figma</span>
+              </span>
+            </button>
+
+            <!-- 8. Cisco Packet Tracer -->
+            <button class="hobby-star star-8 star-cisco" type="button" aria-label="Technology: Cisco Packet Tracer">
+              <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+              <span class="star-ring"></span>
+              <span class="hobby-tooltip">
+                <span class="tooltip-dot"></span>
+                <span class="tooltip-logo" aria-hidden="true">
+                  <svg viewBox="0 0 32 32" width="15" height="15" fill="none">
+                    <circle cx="16" cy="16" r="14" fill="#049FD9" fill-opacity="0.18" stroke="#049FD9" stroke-width="1.5"/>
+                    <line x1="6" y1="18" x2="6" y2="14" stroke="#049FD9" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="11" y1="21" x2="11" y2="11" stroke="#049FD9" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="16" y1="24" x2="16" y2="8" stroke="#049FD9" stroke-width="2.2" stroke-linecap="round"/>
+                    <line x1="21" y1="21" x2="21" y2="11" stroke="#049FD9" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="26" y1="18" x2="26" y2="14" stroke="#049FD9" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span class="tooltip-text">Cisco Packet Tracer</span>
+              </span>
+            </button>
+
+            <!-- Floating Nametag Badge Anchored over the Lower Edge of the Photo Visual -->
+            <div class="hero-nametag-badge">
+              <div class="mc-square-badge">MC</div>
+              <div class="nametag-text">
+                <div class="profile-meta-name">Mark Christian Alejos</div>
+                <div class="profile-meta-sub">3rd Year &bull; Information Technology</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 01: ABOUT ME (02 / 07)
+         ========================================================================== -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        <!-- Balanced 2-Column Grid Layout -->
+        <div class="about-grid">
+          <!-- Left Column: Text & Metadata -->
+          <div class="about-col-left">
+            <!-- Section Header Tag Badge -->
+            <div class="section-tag-wrapper">
+              <span class="section-dash"></span>
+              <span class="section-tag">— ABOUT ME</span>
+              <span class="section-counter">02 / 07</span>
+            </div>
+
+            <!-- Headers -->
+            <div class="section-header about-header-content">
+              <h2 class="section-title">Driven by Curiosity, Engineered with <span class="lime-highlight">Purpose</span>.</h2>
+              <p class="section-desc">
+                Exploring the fusion of robust software development, cloud infrastructure, and human-centric design.
+              </p>
+            </div>
+
+            <!-- Paragraph -->
+            <p class="about-bio-lead">
+              Incoming 3rd-year IT student with a strong foundation in programming and problem-solving, eager to gain hands-on
+              experience in the tech field. Proficient in C, Java (OOP), and Python, with exposure to schema design,
+              database creation, and cloud platforms such as AWS. Adept at working under pressure, with excellent time
+              management and adaptability to new environments.
+            </p>
+
+            <!-- Pill Badges: Neat Left-Aligned Horizontal Row -->
+            <div class="about-pills-row" aria-label="Key Qualifications & Highlights">
+              <!-- Pill 1: 3rd-Year BSIT -->
+              <div class="about-pill pill-bsit">
+                <span class="pill-dot"></span>
+                <span class="pill-text">3rd-Year BSIT</span>
+              </div>
+
+              <!-- Pill 2: Languages & Cloud Platform -->
+              <div class="about-pill pill-stack">
+                <svg class="pill-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <span class="pill-text">C / Java / Python / AWS</span>
+              </div>
+
+              <!-- Pill 3: Scholarship Merit -->
+              <div class="about-pill pill-scholar">
+                <svg class="pill-icon gold-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span class="pill-text">CHED Merit Scholar</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Visual Anchor (Centered Floating Rocket & Trajectory Line) -->
+          <div class="about-col-right">
+            <div class="about-rocket-anchor" id="aboutFloatingRocket" aria-label="Space Rocket Visual - Flight Anchor">
+              <svg class="rocket-svg bare-rocket" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Rocket Flame/Exhaust (Shoots upward behind rocket) -->
+                <g class="rocket-flame-group flame-pointing-up">
+                  <path class="flame-outer" d="M50 42 Q60 6 60 4 Q60 6 70 42 Z" fill="url(#flameOuterGrad)"
+                    opacity="0.85" />
+                  <path class="flame-inner" d="M54 42 Q60 18 60 16 Q60 18 66 42 Z" fill="url(#flameInnerGrad)" />
+                </g>
+                <!-- Engine Nozzle (Top of Rocket) -->
+                <rect x="50" y="41" width="20" height="7" rx="2" fill="#2d3530" stroke="#d4f938"
+                  stroke-width="1.2" />
+                <!-- Left Fin -->
+                <path d="M40 68 L22 46 C20 44 22 40 26 40 L40 46 Z" fill="#1c211e" stroke="#d4f938"
+                  stroke-width="1.5" />
+                <!-- Right Fin -->
+                <path d="M80 68 L98 46 C100 44 98 40 94 40 L80 46 Z" fill="#1c211e" stroke="#d4f938"
+                  stroke-width="1.5" />
+                <!-- Fuselage / Rocket Body (Nose points straight down to y=146) -->
+                <path d="M60 146 C48 122 42 82 42 48 L78 48 C78 82 72 122 60 146 Z" fill="url(#rocketBodyGrad)"
+                  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+                <!-- Center Lime Accent Stripe -->
+                <path d="M58 48 L58 136 L62 136 L62 48 Z" fill="#d4f938" opacity="0.9" />
+                <!-- Cockpit Canopy / Window -->
+                <circle cx="60" cy="104" r="10" fill="#0f1412" stroke="#d4f938" stroke-width="2" />
+                <circle cx="60" cy="104" r="7" fill="url(#windowGrad)" />
+                <ellipse cx="58" cy="101" rx="3" ry="1.8" fill="rgba(255,255,255,0.7)" />
+
+                <!-- Gradients -->
+                <defs>
+                  <linearGradient id="rocketBodyGrad" x1="42" y1="48" x2="78" y2="146" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#26312a" />
+                    <stop offset="50%" stop-color="#181d1a" />
+                    <stop offset="100%" stop-color="#0f1211" />
+                  </linearGradient>
+                  <linearGradient id="windowGrad" x1="53" y1="97" x2="67" y2="111" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#3d5a45" />
+                    <stop offset="100%" stop-color="#12251a" />
+                  </linearGradient>
+                  <linearGradient id="flameOuterGrad" x1="60" y1="42" x2="60" y2="4"
+                    gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#d4f938" />
+                    <stop offset="50%" stop-color="#ffb703" />
+                    <stop offset="100%" stop-color="transparent" />
+                  </linearGradient>
+                  <linearGradient id="flameInnerGrad" x1="60" y1="42" x2="60" y2="16"
+                    gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="60%" stop-color="#d4f938" />
+                    <stop offset="100%" stop-color="transparent" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              <!-- Glowing Dotted Trajectory Line Continuing Downward into #education -->
+              <div class="transition-flight-connector">
+                <svg class="flight-connector-svg" viewBox="0 0 100 160" preserveAspectRatio="none">
+                  <path d="M50 0 C50 60, 50 100, 50 160" class="connector-dashed-line" />
+                </svg>
+                <div class="connector-pulse-pip"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 02: EDUCATION & SCHOLARSHIP TIMELINE (03 / 07)
+         ========================================================================== -->
+    <section class="section education-section" id="education">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-tag-wrapper">
+          <span class="section-dash"></span>
+          <span class="section-tag">— EDUCATION &amp; SCHOLARSHIPS</span>
+          <span class="section-counter">03 / 07</span>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">Academic Journey &amp; <span class="lime-highlight">Scholarship Timeline</span></h2>
+          <p class="section-desc">
+            A winding flight path tracing academic honors, competitive government scholarship grants, and software
+            engineering coursework. Watch the rocket glide through each milestone as you scroll.
+          </p>
+        </div>
+
+        <!-- Timeline Map / Flight Canvas Container -->
+        <div class="timeline-flight-wrapper" id="timelineFlightWrapper">
+
+          <!-- Prominent Winding SVG Flight Path Canvas with traveling rocket -->
+          <div class="timeline-svg-layer" aria-hidden="true">
+            <svg class="timeline-route-svg" id="timelineRouteSvg" viewBox="0 0 1000 860" fill="none"
+              preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Neon glow filters -->
+                <filter id="neonPathGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <linearGradient id="flightTrailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d4f938" stop-opacity="0.9" />
+                  <stop offset="50%" stop-color="#e0fb59" stop-opacity="1" />
+                  <stop offset="100%" stop-color="#739c00" stop-opacity="0.8" />
+                </linearGradient>
+              </defs>
+
+              <!-- Outer subtle glow track -->
+              <path class="flight-path-glow"
+                d="M 220 20 C 220 90, 240 140, 290 170 C 440 230, 640 120, 770 180 C 890 230, 930 360, 840 430 C 740 500, 600 390, 520 460 C 420 540, 360 620, 280 690 C 210 740, 200 810, 260 850" />
+
+              <!-- Base Winding Looping Dashed Flight Route -->
+              <path id="flightRoute" class="flight-path-base"
+                d="M 220 20 C 220 90, 240 140, 290 170 C 440 230, 640 120, 770 180 C 890 230, 930 360, 840 430 C 740 500, 600 390, 520 460 C 420 540, 360 620, 280 690 C 210 740, 200 810, 260 850" />
+
+              <!-- Illuminated Progress Path (fills dynamically as user scrolls) -->
+              <path id="flightRouteProgress" class="flight-path-progress"
+                d="M 220 20 C 220 90, 240 140, 290 170 C 440 230, 640 120, 770 180 C 890 230, 930 360, 840 430 C 740 500, 600 390, 520 460 C 420 540, 360 620, 280 690 C 210 740, 200 810, 260 850" />
+
+              <!-- Traveling SVG Rocket Anchored to the Flight Path -->
+              <g id="svgTravelingRocket" class="svg-traveling-rocket" transform="translate(220, 20) rotate(80)">
+                <!-- Thruster Flame -->
+                <g class="rocket-flight-thrust">
+                  <path d="M -18 -4 L -32 0 L -18 4 Z" fill="url(#thrustGrad)" opacity="0.9" />
+                </g>
+                <!-- Rocket Fin Wings -->
+                <path d="M -12 -12 L -6 -6 L -12 6 L -6 12 Z" fill="#151917" stroke="#d4f938" stroke-width="1.4" />
+                <path d="M -10 -15 L 0 -7 L -4 0 L 0 7 L -10 15 Z" fill="#1f2622" stroke="#d4f938" stroke-width="1.2" />
+                <!-- Rocket Fuselage -->
+                <path d="M 18 0 C 14 -6, -8 -7, -14 -6 L -14 6 C -8 7, 14 6, 18 0 Z" fill="#111413" stroke="#d4f938"
+                  stroke-width="1.8" />
+                <!-- Fuselage Lime Accent Stripe -->
+                <line x1="-12" y1="0" x2="14" y2="0" stroke="#d4f938" stroke-width="2" />
+                <!-- Cockpit Glow -->
+                <circle cx="4" cy="0" r="3.2" fill="#d4f938" filter="url(#neonPathGlow)" />
+                <circle cx="4" cy="0" r="1.8" fill="#ffffff" />
+                <!-- Rocket Nozzle -->
+                <rect x="-17" y="-3.5" width="4" height="7" rx="1" fill="#303833" stroke="#d4f938" stroke-width="1" />
+
+                <defs>
+                  <linearGradient id="thrustGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="transparent" />
+                    <stop offset="40%" stop-color="#ff9900" />
+                    <stop offset="100%" stop-color="#d4f938" />
+                  </linearGradient>
+                </defs>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Milestone Nodes Overlay (3 Key Stops) -->
+          <div class="milestones-timeline-grid">
+
+            <!-- MILESTONE 1: Lagro High School -->
+            <div class="milestone-station station-1" id="milestone-1" data-station="1">
+              <div class="station-pin-container">
+                <button class="station-planet-pin" type="button" aria-label="Milestone 1: Lagro High School">
+                  <span class="station-pin-core">01</span>
+                  <span class="station-ring-ping"></span>
+                  <span class="station-ring-orbit"></span>
+                </button>
+                <div class="station-connecting-line"></div>
+              </div>
+
+              <div class="station-card">
+                <div class="station-card-header">
+                  <div class="station-meta-block">
+                    <div class="station-meta-bar">
+                      <span class="station-code">STOP 01 // 2020 – 2022</span>
+                      <span class="station-tag-badge">Secondary Honors</span>
+                    </div>
+                    <h3 class="station-title">Lagro High School</h3>
+                    <div class="station-subtitle">STEM Strand &bull; Quezon City</div>
+                  </div>
+                  <div class="station-logo-frame" title="Lagro High School">
+                    <img src="assets/images/lagro-logo.svg" alt="Lagro High School Seal" class="station-logo-img">
+                  </div>
+                </div>
+                <p class="station-details">
+                  Graduated with highest honors; recognized with multiple academic merit achievements in Science, Technology, Engineering, and Mathematics (STEM).
+                </p>
+              </div>
+            </div>
+
+            <!-- MILESTONE 2: CHED Merit Scholarship -->
+            <div class="milestone-station station-2" id="milestone-2" data-station="2">
+              <div class="station-pin-container">
+                <button class="station-planet-pin" type="button" aria-label="Milestone 2: CHED Merit Scholarship">
+                  <span class="station-pin-core">02</span>
+                  <span class="station-ring-ping"></span>
+                  <span class="station-ring-orbit"></span>
+                </button>
+                <div class="station-connecting-line"></div>
+              </div>
+
+              <div class="station-card">
+                <div class="station-card-header">
+                  <div class="station-meta-block">
+                    <div class="station-meta-bar">
+                      <span class="station-code">STOP 02 // 2022 – PRESENT</span>
+                      <span class="station-tag-badge gold">National Grant</span>
+                    </div>
+                    <h3 class="station-title">CHED Merit Scholarship</h3>
+                    <div class="station-subtitle">Commission on Higher Education (CHED)</div>
+                  </div>
+                  <div class="station-logo-frame gold-frame" title="Commission on Higher Education">
+                    <img src="assets/images/ched-logo.svg" alt="Commission on Higher Education Seal" class="station-logo-img">
+                  </div>
+                </div>
+                <p class="station-details">
+                  CHED Merit Scholar since freshman year (2022 – Present), consistently maintained through outstanding academic standing and General Weighted Average.
+                </p>
+              </div>
+            </div>
+
+            <!-- MILESTONE 3: PUP Manila -->
+            <div class="milestone-station station-3" id="milestone-3" data-station="3">
+              <div class="station-pin-container">
+                <button class="station-planet-pin" type="button"
+                  aria-label="Milestone 3: Polytechnic University of the Philippines">
+                  <span class="station-pin-core">03</span>
+                  <span class="station-ring-ping"></span>
+                  <span class="station-ring-orbit"></span>
+                </button>
+                <div class="station-connecting-line"></div>
+              </div>
+
+              <div class="station-card">
+                <div class="station-card-header">
+                  <div class="station-meta-block">
+                    <div class="station-meta-bar">
+                      <span class="station-code">STOP 03 // 2022 – PRESENT</span>
+                      <span class="station-tag-badge active">Undergrad</span>
+                    </div>
+                    <h3 class="station-title">Polytechnic University of the Philippines</h3>
+                    <div class="station-subtitle">BS Information Technology &bull; Manila &bull; 2022 – Present</div>
+                  </div>
+                  <div class="station-logo-frame" title="Polytechnic University of the Philippines">
+                    <img src="assets/images/pup-logo.svg" alt="Polytechnic University of the Philippines Seal" class="station-logo-img">
+                  </div>
+                </div>
+                <p class="station-details">
+                  Developed core software engineering skills (OOP, logic, problem-solving). Built end-to-end
+                  applications, relational databases, and dynamic web solutions.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 03: FEATURED PROJECTS (04 / 07)
+         ========================================================================== -->
+    <section class="section projects-section" id="projects">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-tag-wrapper">
+          <span class="section-dash"></span>
+          <span class="section-tag">— FEATURED PROJECTS</span>
+          <span class="section-counter">04 / 07</span>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">Academic &amp; Technical <span class="lime-highlight">Projects</span></h2>
+          <p class="section-desc">
+            A curated showcase of enterprise networking architectures, product prototypes, database-backed web portals,
+            and statistical data analysis.
+          </p>
+        </div>
+
+        <!-- Compact 3-Column Planet Card Grid (Click to Reveal Full Details) -->
+        <div class="projects-planet-grid" id="projectsPlanetGrid">
+
+          <!-- Planet Card 1: Spanning Tree Resort -->
+          <div class="project-planet-card" data-project-idx="01" role="button" tabindex="0"
+            aria-haspopup="dialog" aria-label="Open Spanning Tree Resort project details">
+            <!-- Planet Halo Glow -->
+            <div class="planet-glow-halo"></div>
+
+            <!-- Empty Image Placeholder Area (Photo will be added here later) -->
+            <div class="planet-image-frame">
+              <!-- Placeholder slot for photo: <img src="assets/images/project-spanning-tree.jpg" alt="Spanning Tree Resort"> -->
+              <div class="planet-empty-placeholder">
+                <svg class="placeholder-cam-icon" viewBox="0 0 24 24" width="28" height="28" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span class="placeholder-caption">PROJECT PHOTO AREA</span>
+              </div>
+              <span class="planet-badge">PLANET 01</span>
+            </div>
+
+            <!-- Card Body: Initial Compact View (Only title and inspect hint) -->
+            <div class="planet-info-body">
+              <h3 class="planet-title">Spanning Tree Resort – Enterprise Network Architecture</h3>
+              <div class="planet-action-cue">
+                <span>Inspect Node</span>
+                <span class="cue-arrow">↗</span>
+              </div>
+            </div>
+
+            <!-- Hidden Full Details (Rendered in Modal upon click) -->
+            <div class="planet-hidden-data" style="display: none;">
+              <span class="data-role">Project Lead</span>
+              <span class="data-category">01 // ENTERPRISE NETWORK TOPOLOGY</span>
+              <div class="data-tech">
+                <span class="tech-pill">Cisco Packet Tracer</span>
+                <span class="tech-pill">VLANs</span>
+                <span class="tech-pill">STP</span>
+                <span class="tech-pill">HSRP</span>
+                <span class="tech-pill">EtherChannel</span>
+                <span class="tech-pill">OSPF</span>
+                <span class="tech-pill">ASA Firewall</span>
+              </div>
+              <ul class="data-bullets">
+                <li>Spearheaded enterprise network design, integrating access, core, and edge layers.</li>
+                <li>Configured inter-VLAN routing, NAT/PAT, and guest isolation policies.</li>
+                <li>Validated zero-downtime topology and secure guest access through structured testing procedures.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Planet Card 2: PUPwesto Application Prototype -->
+          <div class="project-planet-card" data-project-idx="02" role="button" tabindex="0"
+            aria-haspopup="dialog" aria-label="Open PUPwesto Application Prototype details">
+            <!-- Planet Halo Glow -->
+            <div class="planet-glow-halo"></div>
+
+            <!-- Empty Image Placeholder Area (Photo will be added here later) -->
+            <div class="planet-image-frame">
+              <!-- Placeholder slot for photo: <img src="assets/images/project-pupwesto.jpg" alt="PUPwesto Prototype"> -->
+              <div class="planet-empty-placeholder">
+                <svg class="placeholder-cam-icon" viewBox="0 0 24 24" width="28" height="28" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span class="placeholder-caption">PROJECT PHOTO AREA</span>
+              </div>
+              <span class="planet-badge">PLANET 02</span>
+            </div>
+
+            <!-- Card Body: Initial Compact View (Only title and inspect hint) -->
+            <div class="planet-info-body">
+              <h3 class="planet-title">PUPwesto Application Prototype</h3>
+              <div class="planet-action-cue">
+                <span>Inspect Node</span>
+                <span class="cue-arrow">↗</span>
+              </div>
+            </div>
+
+            <!-- Hidden Full Details (Rendered in Modal upon click) -->
+            <div class="planet-hidden-data" style="display: none;">
+              <span class="data-role">UI/UX Designer &amp; Prototyper</span>
+              <span class="data-category">02 // UI/UX DESIGN &amp; PROTOTYPING</span>
+              <div class="data-tech">
+                <span class="tech-pill">Figma</span>
+                <span class="tech-pill">Wireframing</span>
+                <span class="tech-pill">Design Systems</span>
+              </div>
+              <ul class="data-bullets">
+                <li>Built low/high-fidelity prototypes, structured user journeys, and interactive components.</li>
+                <li>Translated conceptual wireframes into functional, testable prototypes meeting usability and accessibility standards.</li>
+                <li>Leveraged Figma for collaborative component creation, prototyping flows, and variant management.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Planet Card 3: SALN Submission Portal -->
+          <div class="project-planet-card" data-project-idx="03" role="button" tabindex="0"
+            aria-haspopup="dialog" aria-label="Open SALN Submission Portal details">
+            <!-- Planet Halo Glow -->
+            <div class="planet-glow-halo"></div>
+
+            <!-- Empty Image Placeholder Area (Photo will be added here later) -->
+            <div class="planet-image-frame">
+              <!-- Placeholder slot for photo: <img src="assets/images/project-saln.jpg" alt="SALN Portal"> -->
+              <div class="planet-empty-placeholder">
+                <svg class="placeholder-cam-icon" viewBox="0 0 24 24" width="28" height="28" fill="none"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span class="placeholder-caption">PROJECT PHOTO AREA</span>
+              </div>
+              <span class="planet-badge">PLANET 03</span>
+            </div>
+
+            <!-- Card Body: Initial Compact View (Only title and inspect hint) -->
+            <div class="planet-info-body">
+              <h3 class="planet-title">SALN Submission Portal</h3>
+              <div class="planet-action-cue">
+                <span>Inspect Node</span>
+                <span class="cue-arrow">↗</span>
+              </div>
+            </div>
+
+            <!-- Hidden Full Details (Rendered in Modal upon click) -->
+            <div class="planet-hidden-data" style="display: none;">
+              <span class="data-role">Backend &amp; Database Developer</span>
+              <span class="data-category">03 // FULL-STACK &amp; AI AUTOMATION</span>
+              <div class="data-tech">
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">Python Flask</span>
+                <span class="tech-pill">Gemini Pro</span>
+              </div>
+              <ul class="data-bullets">
+                <li>Designed relational schemas, optimized SQL queries, and ensured proper table structures and relationships.</li>
+                <li>Integrated Flask backend with Gemini Pro capabilities for automated processing and submission workflows.</li>
+                <li>Engineered backend services connecting the database seamlessly to the front-end interface.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Project Details Modal Popup -->
+        <div class="project-modal-backdrop" id="projectModalBackdrop" aria-hidden="true" role="dialog"
+          aria-modal="true" aria-labelledby="modalProjectTitle">
+          <div class="project-modal-dialog">
+            <!-- Modal Close Button -->
+            <button class="modal-close-btn" id="modalCloseBtn" type="button" aria-label="Close project details">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+
+            <!-- Large Image Preview Frame inside Modal -->
+            <div class="modal-image-preview" id="modalImagePreview">
+              <div class="modal-empty-banner">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span>PROJECT SCREENSHOT / BANNER PLACEHOLDER</span>
+              </div>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="modal-content-body">
+              <div class="modal-meta-bar">
+                <span class="modal-category" id="modalCategory">PROJECT INDEX</span>
+                <span class="modal-role-badge" id="modalRole">Role Tag</span>
+              </div>
+
+              <h2 class="modal-title" id="modalProjectTitle">Project Title</h2>
+
+              <!-- Tech Stack Pills -->
+              <div class="modal-section-block">
+                <div class="modal-subheading">TECH STACK &amp; TOOLS</div>
+                <div class="modal-tech-pills" id="modalTechPills"></div>
+              </div>
+
+              <!-- Scope & Key Bullets -->
+              <div class="modal-section-block">
+                <div class="modal-subheading">KEY ACCOMPLISHMENTS &amp; SCOPE</div>
+                <ul class="modal-bullets-list" id="modalBulletsList"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 04: EXTRACURRICULARS (05 / 07) - LEADERSHIP & COMMUNITY
+         ========================================================================== -->
+    <section class="section extracurriculars-section" id="extracurriculars">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-tag-wrapper">
+          <span class="section-dash"></span>
+          <span class="section-tag">— EXTRACURRICULARS</span>
+          <span class="section-counter">05 / 07</span>
+        </div>
+
+        <div class="section-header">
+          <h2 class="section-title">Leadership &amp; <span class="lime-highlight">Community</span></h2>
+          <p class="section-desc">
+            Active organizational leadership, strategic direction, web engineering, and student engagement across key university tech chapters.
+          </p>
+        </div>
+
+        <!-- Interactive Split-Pane / Tabs Layout -->
+        <div class="extracurriculars-split-pane">
+          <!-- Left Column: The Directory / Organization Tabs -->
+          <div class="extra-tabs-sidebar" role="tablist" aria-label="Extracurricular Organizations Directory">
+            
+            <button class="extra-tab-btn active" role="tab" aria-selected="true" id="tab-cisco" aria-controls="panel-cisco" data-tab-target="panel-cisco">
+              <div class="tab-indicator-bar"></div>
+              <div class="tab-btn-content">
+                <span class="tab-org-index">01 // NETWORKING &amp; RELATIONS</span>
+                <span class="tab-org-name">Cisco NetConnect PUP</span>
+                <span class="tab-org-role">Community Relations Member</span>
+              </div>
+              <span class="tab-active-chevron">→</span>
+            </button>
+
+            <button class="extra-tab-btn" role="tab" aria-selected="false" id="tab-gdg" aria-controls="panel-gdg" data-tab-target="panel-gdg">
+              <div class="tab-indicator-bar"></div>
+              <div class="tab-btn-content">
+                <span class="tab-org-index">02 // TECH COMMUNITY &amp; DEV</span>
+                <span class="tab-org-name">GDG on Campus PUP</span>
+                <span class="tab-org-role">Deputy CSO &bull; Web Cadet</span>
+              </div>
+              <span class="tab-active-chevron">→</span>
+            </button>
+
+            <button class="extra-tab-btn" role="tab" aria-selected="false" id="tab-ibits" aria-controls="panel-ibits" data-tab-target="panel-ibits">
+              <div class="tab-indicator-bar"></div>
+              <div class="tab-btn-content">
+                <span class="tab-org-index">03 // IT ACADEMIC BODY</span>
+                <span class="tab-org-name">IBITS</span>
+                <span class="tab-org-role">Deputy Head, Programs &amp; Activities</span>
+              </div>
+              <span class="tab-active-chevron">→</span>
+            </button>
+
+            <button class="extra-tab-btn" role="tab" aria-selected="false" id="tab-aws" aria-controls="panel-aws" data-tab-target="panel-aws">
+              <div class="tab-indicator-bar"></div>
+              <div class="tab-btn-content">
+                <span class="tab-org-index">04 // CLOUD COMPUTING</span>
+                <span class="tab-org-name">AWS Cloud Club PUP</span>
+                <span class="tab-org-role">Documents Head</span>
+              </div>
+              <span class="tab-active-chevron">→</span>
+            </button>
+
+          </div>
+
+          <!-- Right Column: The Viewport / Display Area -->
+          <div class="extra-viewport-container">
+            
+            <!-- PANEL 1: Cisco NetConnect PUP -->
+            <div class="extra-tab-panel active" id="panel-cisco" role="tabpanel" aria-labelledby="tab-cisco">
+              <!-- Wide Image Placeholder Slot with Subtle Gradient Overlay -->
+              <div class="extra-banner-frame">
+                <div class="banner-gradient-overlay"></div>
+                <div class="banner-placeholder-visual">
+                  <div class="banner-camera-icon">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <span class="banner-caption-text">CISCO NETCONNECT PUP &bull; ACTIVITY PHOTO PLACEHOLDER</span>
+                </div>
+                <span class="banner-tag-badge">01 // COMMUNITY RELATIONS</span>
+              </div>
+
+              <!-- Content Area -->
+              <div class="extra-panel-body">
+                <div class="extra-role-header">
+                  <div>
+                    <h3 class="extra-role-title">Community Relations Member</h3>
+                    <div class="extra-org-headline">Cisco NetConnect PUP</div>
+                  </div>
+                  <div class="extra-badge-group">
+                    <span class="extra-status-pill active-pill">Oct 2026 – Present</span>
+                    <span class="extra-status-pill mode-pill">Hybrid</span>
+                  </div>
+                </div>
+
+                <div class="extra-details-block">
+                  <h4 class="extra-details-heading">KEY RESPONSIBILITIES &amp; CONTRIBUTIONS</h4>
+                  <ul class="extra-responsibilities-list">
+                    <li>Part of the Communications and Relations team, helping communicate with members, partners, and the wider student tech community.</li>
+                    <li>Draft and review announcements, event updates, and promotional materials.</li>
+                    <li>Support outreach to partner organizations, speakers, and sponsors to build professional relationships.</li>
+                    <li>Coordinate with other committees to ensure event details are communicated clearly and on time.</li>
+                    <li>Assist with documenting events and maintaining consistent, professional messaging.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANEL 2: GDG on Campus PUP (Dual Roles) -->
+            <div class="extra-tab-panel" id="panel-gdg" role="tabpanel" aria-labelledby="tab-gdg">
+              <!-- Wide Image Placeholder Slot with Subtle Gradient Overlay -->
+              <div class="extra-banner-frame">
+                <div class="banner-gradient-overlay"></div>
+                <div class="banner-placeholder-visual">
+                  <div class="banner-camera-icon">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <span class="banner-caption-text">GDG ON CAMPUS PUP &bull; ACTIVITY PHOTO PLACEHOLDER</span>
+                </div>
+                <span class="banner-tag-badge">02 // STRATEGY &amp; WEB DEV</span>
+              </div>
+
+              <!-- Content Area -->
+              <div class="extra-panel-body">
+                <div class="extra-org-headline-lead">GDG on Campus PUP</div>
+
+                <!-- Role 1: Deputy Chief Strategic Officer -->
+                <div class="extra-subrole-card">
+                  <div class="extra-role-header">
+                    <h3 class="extra-role-title">Deputy Chief Strategic Officer</h3>
+                    <div class="extra-badge-group">
+                      <span class="extra-status-pill active-pill">Sep 2026 – Present</span>
+                      <span class="extra-status-pill rank-pill">Executive Directorate</span>
+                    </div>
+                  </div>
+                  <ul class="extra-responsibilities-list">
+                    <li>Support the CSO in shaping the long-term direction, translating organizational goals into clear departmental plans.</li>
+                    <li>Develop and track the chapter’s strategic roadmap, priorities, and key objectives.</li>
+                    <li>Coordinate with department heads (Partnerships, Data &amp; ML) to align initiatives with chapter goals.</li>
+                    <li>Prepare strategic documents, proposals, and reports, acting as a stand-in for the CSO when needed.</li>
+                  </ul>
+                </div>
+
+                <!-- Role 2: Web Development Cadet -->
+                <div class="extra-subrole-card secondary-role">
+                  <div class="extra-role-header">
+                    <h3 class="extra-role-title sub-title">Web Development Cadet</h3>
+                    <div class="extra-badge-group">
+                      <span class="extra-status-pill">Nov 2025 – Sep 2026</span>
+                      <span class="extra-status-pill mode-pill">Technical Team</span>
+                    </div>
+                  </div>
+                  <ul class="extra-responsibilities-list">
+                    <li>Contributed to the design, development, and maintenance of web and mobile solutions supporting GDG-PUP’s goals.</li>
+                    <li>Collaborated on full-stack tasks to ensure efficient, user-friendly digital platforms.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANEL 3: IBITS -->
+            <div class="extra-tab-panel" id="panel-ibits" role="tabpanel" aria-labelledby="tab-ibits">
+              <!-- Wide Image Placeholder Slot with Subtle Gradient Overlay -->
+              <div class="extra-banner-frame">
+                <div class="banner-gradient-overlay"></div>
+                <div class="banner-placeholder-visual">
+                  <div class="banner-camera-icon">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <span class="banner-caption-text">IBITS &bull; ACTIVITY PHOTO PLACEHOLDER</span>
+                </div>
+                <span class="banner-tag-badge">03 // PROGRAMS &amp; ACTIVITIES</span>
+              </div>
+
+              <!-- Content Area -->
+              <div class="extra-panel-body">
+                <div class="extra-role-header">
+                  <div>
+                    <h3 class="extra-role-title">Deputy Head, Programs and Activities Committee</h3>
+                    <div class="extra-org-headline">IBITS</div>
+                  </div>
+                  <div class="extra-badge-group">
+                    <span class="extra-status-pill">Sep 2025 – Oct 2026</span>
+                    <span class="extra-status-pill mode-pill">Hybrid</span>
+                  </div>
+                </div>
+
+                <div class="extra-details-block">
+                  <h4 class="extra-details-heading">KEY RESPONSIBILITIES &amp; CONTRIBUTIONS</h4>
+                  <ul class="extra-responsibilities-list">
+                    <li>Assisted in planning, organizing, and executing organizational programs and activities.</li>
+                    <li>Coordinated with committee members and volunteers to ensure smooth event operations.</li>
+                    <li>Supported the Head in managing schedules, delegating tasks, and overseeing logistics.</li>
+                    <li>Contributed to activity design, documentation, and post-event evaluation for continuous improvement.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- PANEL 4: AWS Cloud Club PUP -->
+            <div class="extra-tab-panel" id="panel-aws" role="tabpanel" aria-labelledby="tab-aws">
+              <!-- Wide Image Placeholder Slot with Subtle Gradient Overlay -->
+              <div class="extra-banner-frame">
+                <div class="banner-gradient-overlay"></div>
+                <div class="banner-placeholder-visual">
+                  <div class="banner-camera-icon">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="4" ry="4"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <span class="banner-caption-text">AWS CLOUD CLUB PUP &bull; ACTIVITY PHOTO PLACEHOLDER</span>
+                </div>
+                <span class="banner-tag-badge">04 // DOCUMENTATION HEAD</span>
+              </div>
+
+              <!-- Content Area -->
+              <div class="extra-panel-body">
+                <div class="extra-role-header">
+                  <div>
+                    <h3 class="extra-role-title">Documents Head</h3>
+                    <div class="extra-org-headline">AWS Cloud Club PUP</div>
+                  </div>
+                  <div class="extra-badge-group">
+                    <span class="extra-status-pill">Oct 2025 – Aug 2026</span>
+                    <span class="extra-status-pill mode-pill">Hybrid</span>
+                  </div>
+                </div>
+
+                <div class="extra-details-block">
+                  <h4 class="extra-details-heading">KEY RESPONSIBILITIES &amp; CONTRIBUTIONS</h4>
+                  <ul class="extra-responsibilities-list">
+                    <li>Led the Documentation Subcommittee, overseeing the creation and organization of official club records, reports, and creative outputs.</li>
+                    <li>Coordinated with fellow subcommittee heads to ensure consistent documentation across events.</li>
+                    <li>Participated in volunteer activities, providing real-time documentation support and maintaining structured archives.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================    <!-- ==========================================================================
+         SECTION 05: CONTACTS (06 / 07)
+         ========================================================================== -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="section-tag-wrapper">
+          <span class="section-dash"></span>
+          <span class="section-tag">— CONTACTS</span>
+          <span class="section-counter">06 / 07</span>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Left Column: Info & Direct Contact -->
+          <div class="contact-info-col">
+            <h2 class="contact-heading">Let's Connect</h2>
+            <p class="contact-subtitle">
+              Have a project in mind, an internship opportunity, or want to discuss software systems and web development? Drop me a line anytime.
+            </p>
+
+            <!-- Minimalist Contact Cards Stacked Vertically -->
+            <div class="contact-cards-stack">
+              <!-- Card 1 (Email) -->
+              <div class="contact-card" id="email-contact-card">
+                <div class="contact-card-icon-slot">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div class="contact-card-details">
+                  <span class="contact-card-label">EMAIL</span>
+                  <a href="mailto:alejosmarkchristian.com" class="contact-card-value" id="contact-email-value">alejosmarkchristian.com</a>
+                </div>
+                <button class="contact-copy-btn" type="button" aria-label="Copy email address" data-copy-target="contact-email-value" data-card-id="email-contact-card" title="Copy email">
+                  <svg class="copy-default-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <svg class="copy-success-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Card 2 (Phone) -->
+              <div class="contact-card" id="phone-contact-card">
+                <div class="contact-card-icon-slot">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </div>
+                <div class="contact-card-details">
+                  <span class="contact-card-label">PHONE</span>
+                  <span class="contact-card-value" id="contact-phone-value">+63 993 583 2833</span>
+                </div>
+                <button class="contact-copy-btn" type="button" aria-label="Copy phone number" data-copy-target="contact-phone-value" data-card-id="phone-contact-card" title="Copy phone number">
+                  <svg class="copy-default-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                  </svg>
+                  <svg class="copy-success-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Standard Contact Form -->
+          <div class="contact-form-col">
+            <div class="contact-form-card">
+              <form class="contact-form" id="contact-form" novalidate>
+                <div class="form-group">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" name="email" class="form-input" placeholder="you@company.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                  <label for="subject" class="form-label">Subject</label>
+                  <input type="text" id="subject" name="subject" class="form-input" placeholder="Project inquiry" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea id="message" name="message" class="form-textarea" rows="4" placeholder="Tell me about your project..." required></textarea>
+                </div>
+
+                <!-- Submit Button: Full-width, Electric Lime, Paper plane icon, SEND MESSAGE -->
+                <button type="submit" class="btn-submit-contact" id="btn-submit-contact">
+                  <svg class="btn-icon-plane" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                  <span>SEND MESSAGE</span>
+                </button>
+              </form>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>&copy; 2026 MC &bull; Mark Christian Alejos. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">GitHub</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">LinkedIn</a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">Twitter /
+          X</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Box -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
