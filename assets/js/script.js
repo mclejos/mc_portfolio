@@ -1,524 +1,553 @@
 /**
- * Portfolio Interactive Logic
- * - Dual Theme Switcher (Dark/Light)
- * - Mobile Navigation Drawer
- * - Scroll Spy & Active Nav Links
- * - Contact Form Validation & Toast Feedback
+ * Portfolio Interactive Core
+ * Streamlined & High-Performance Script
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. THEME SWITCHER
-  const themeToggleBtn = document.getElementById('theme-toggle');
-  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-  // Initialize theme from localStorage or system preference
-  const savedTheme = localStorage.getItem('portfolio-theme');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  } else if (prefersDarkScheme.matches) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark'); // default rich dark mode
-  }
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('portfolio-theme', newTheme);
-    });
-  }
+  const themeToggle = document.getElementById('theme-toggle');
+  const setTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  };
+  const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+  setTheme(savedTheme);
+  themeToggle?.addEventListener('click', () => {
+    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
 
   // 2. MOBILE NAVIGATION DRAWER
   const mobileToggle = document.getElementById('mobile-toggle');
   const navLinks = document.getElementById('nav-links');
+  const setNavState = (open) => {
+    navLinks?.classList.toggle('open', open);
+    mobileToggle?.setAttribute('aria-expanded', String(open));
+  };
+  mobileToggle?.addEventListener('click', () => setNavState(!navLinks?.classList.contains('open')));
+  navLinks?.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => setNavState(false)));
+  document.addEventListener('click', (e) => {
+    if (navLinks?.classList.contains('open') && !navLinks.contains(e.target) && !mobileToggle?.contains(e.target)) {
+      setNavState(false);
+    }
+  });
 
-  if (mobileToggle && navLinks) {
-    mobileToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      const isOpen = navLinks.classList.contains('open');
-      mobileToggle.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Close when clicking a nav link
-    navLinks.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target) && navLinks.classList.contains('open')) {
-        navLinks.classList.remove('open');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
-  // 2b. ADVANCED DYNAMIC NAVIGATION & SCROLL PROGRESS INDICATOR
+  // 3. ADVANCED DYNAMIC NAVBAR & SCROLL PROGRESS INDICATOR
   const navbar = document.getElementById('navbar');
   const navProgressBar = document.getElementById('navProgressBar');
-
   const updateUnifiedNavWidth = () => {
     if (!navbar) return;
-    const navLeft = navbar.querySelector('.nav-left');
-    const navCenter = navbar.querySelector('.nav-center');
-    const navRight = navbar.querySelector('.nav-right');
-    if (navLeft && navCenter && navRight) {
-      const naturalWidth = navLeft.scrollWidth + navCenter.scrollWidth + navRight.scrollWidth + 72;
-      navbar.style.setProperty('--nav-unified-width', Math.max(740, naturalWidth) + 'px');
+    const [left, center, right] = ['.nav-left', '.nav-center', '.nav-right'].map(s => navbar.querySelector(s));
+    if (left && center && right) {
+      navbar.style.setProperty('--nav-unified-width', `${Math.max(740, left.scrollWidth + center.scrollWidth + right.scrollWidth + 72)}px`);
     }
   };
   updateUnifiedNavWidth();
   window.addEventListener('resize', updateUnifiedNavWidth);
 
-  const handleNavbarScroll = () => {
-    // 1. Dynamic Unified-to-Split State: If window.scrollY > 50, add .scrolled
+  // 4. SCROLL HANDLERS (Navbar, Progress Bar & Active Link Spy)
+  const sections = document.querySelectorAll('section[id]');
+  const allNavLinks = document.querySelectorAll('.nav-link');
+
+  const onScroll = () => {
+    const scrollY = window.scrollY;
+
+    // Dynamic Unified-to-Split State: If window.scrollY > 50, add .scrolled
     if (navbar) {
-      if (window.scrollY > 50) {
+      if (scrollY > 50) {
         navbar.classList.add('scrolled');
       } else {
         navbar.classList.remove('scrolled');
       }
     }
 
-    // 2. Scroll Progress Indicator: (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+    // Scroll Progress Indicator Formula: (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
     if (navProgressBar) {
-      const scrollTotal = (document.body.scrollHeight - window.innerHeight) > 0
-        ? (document.body.scrollHeight - window.innerHeight)
-        : ((document.documentElement.scrollHeight - window.innerHeight) || 1);
-      const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight || scrollTotal)) * 100;
-      navProgressBar.style.width = Math.min(100, Math.max(0, scrollPercent)) + '%';
+      const scrollTotal = (document.body.scrollHeight || document.documentElement.scrollHeight) - window.innerHeight;
+      const scrollPercent = scrollTotal > 0 ? (scrollY / ((document.body.scrollHeight - window.innerHeight) || scrollTotal)) * 100 : 0;
+      navProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
     }
-  };
 
-  window.addEventListener('scroll', handleNavbarScroll, { passive: true });
-  handleNavbarScroll();
-
-  // 3. SCROLL SPY FOR ACTIVE NAVIGATION
-  const sections = document.querySelectorAll('section[id]');
-  const allNavLinks = document.querySelectorAll('.nav-link');
-
-  const highlightNavOnScroll = () => {
-    const scrollY = window.pageYOffset;
-
-    sections.forEach(current => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 120;
-      const sectionId = current.getAttribute('id');
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        allNavLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
+    // Scroll Spy
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 140;
+      if (scrollY >= top && scrollY < top + sec.offsetHeight) {
+        allNavLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${sec.id}`));
       }
     });
   };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  window.addEventListener('scroll', highlightNavOnScroll, { passive: true });
-  highlightNavOnScroll();
+  // 5. EDUCATION TIMELINE: WINDING FLIGHT PATH & ROCKET SCROLL CONTROLLER
+  const edu = document.getElementById('education');
+  const path = document.getElementById('flightRoute');
+  const pathProg = document.getElementById('flightRouteProgress');
+  const rocket = document.getElementById('svgTravelingRocket');
+  const stations = document.querySelectorAll('.milestone-station');
 
-  // ==========================================================================
-  // 3b. EDUCATION TIMELINE: WINDING FLIGHT PATH & ROCKET SCROLL CONTROLLER
-  // ==========================================================================
-  const eduSection = document.getElementById('education');
-  const flightRoute = document.getElementById('flightRoute');
-  const flightRouteProgress = document.getElementById('flightRouteProgress');
-  const travelingRocket = document.getElementById('svgTravelingRocket');
-  const milestoneStations = document.querySelectorAll('.milestone-station');
+  if (edu && path && rocket) {
+    let pathLen = path.getTotalLength?.() || 0;
+    if (pathProg) pathProg.style.strokeDasharray = `${pathLen} ${pathLen}`;
 
-  if (eduSection && flightRoute && travelingRocket) {
-    let totalPathLength = 0;
-    try {
-      totalPathLength = flightRoute.getTotalLength();
-      if (flightRouteProgress) {
-        flightRouteProgress.style.strokeDasharray = `${totalPathLength} ${totalPathLength}`;
-        flightRouteProgress.style.strokeDashoffset = `${totalPathLength}`;
-      }
-    } catch (e) {
-      console.warn('SVG path total length fallback', e);
-    }
+    const updateFlight = () => {
+      const rect = edu.getBoundingClientRect();
+      const h = window.innerHeight;
+      const progress = Math.max(0, Math.min(1, (h * 0.75 - rect.top) / (rect.height + h * 0.5)));
+      const dist = progress * pathLen;
+      const pt = path.getPointAtLength(dist);
+      const nextPt = path.getPointAtLength(Math.min(dist + 2, pathLen));
+      const prevPt = path.getPointAtLength(Math.max(dist - 2, 0));
+      const deg = Math.atan2(nextPt.y - prevPt.y, nextPt.x - prevPt.x) * (180 / Math.PI);
 
-    let isTicking = false;
-    let targetProgress = 0;
-    let currentProgress = 0;
+      rocket.setAttribute('transform', `translate(${pt.x.toFixed(1)}, ${pt.y.toFixed(1)}) rotate(${deg.toFixed(1)})`);
+      if (pathProg) pathProg.style.strokeDashoffset = (pathLen - dist).toFixed(1);
 
-    const calculateFlightProgress = () => {
-      const rect = eduSection.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-
-      // Begin smoothly when section reaches the upper-middle of viewport
-      const startTrigger = viewportHeight * 0.75;
-      const endTrigger = viewportHeight * 0.25;
-      const totalScrollable = rect.height + startTrigger - endTrigger;
-      const currentScroll = startTrigger - rect.top;
-
-      let progress = currentScroll / totalScrollable;
-      return Math.max(0, Math.min(1, progress));
-    };
-
-    const updateRocketAnimation = () => {
-      if (!totalPathLength) return;
-
-      // Smooth interpolation for butter-smooth rocket trajectory
-      currentProgress += (targetProgress - currentProgress) * 0.16;
-      if (Math.abs(targetProgress - currentProgress) < 0.0004) {
-        currentProgress = targetProgress;
-      }
-
-      const currentDistance = currentProgress * totalPathLength;
-      const point = flightRoute.getPointAtLength(currentDistance);
-
-      // Tangent / Nose orientation along path trajectory
-      const delta = 2.5;
-      const nextPoint = flightRoute.getPointAtLength(Math.min(currentDistance + delta, totalPathLength));
-      const prevPoint = flightRoute.getPointAtLength(Math.max(currentDistance - delta, 0));
-      const angleRad = Math.atan2(nextPoint.y - prevPoint.y, nextPoint.x - prevPoint.x);
-      const angleDeg = angleRad * (180 / Math.PI);
-
-      // Translate and rotate rocket nose dynamically
-      travelingRocket.setAttribute(
-        'transform',
-        `translate(${point.x.toFixed(2)}, ${point.y.toFixed(2)}) rotate(${angleDeg.toFixed(2)})`
-      );
-
-      // Illuminate progress stroke trail behind rocket
-      if (flightRouteProgress) {
-        flightRouteProgress.style.strokeDashoffset = `${(totalPathLength - currentDistance).toFixed(2)}`;
-      }
-
-      // Activate milestone station pins as rocket passes them
-      milestoneStations.forEach((station, index) => {
-        const pin = station.querySelector('.station-planet-pin');
-        if (!pin) return;
-        const stopThresholds = [0.12, 0.46, 0.82];
-        if (currentProgress >= stopThresholds[index]) {
-          pin.classList.add('active');
-        } else {
-          pin.classList.remove('active');
-        }
+      [0.12, 0.46, 0.82].forEach((thresh, i) => {
+        stations[i]?.querySelector('.station-planet-pin')?.classList.toggle('active', progress >= thresh);
       });
-
-      if (Math.abs(targetProgress - currentProgress) > 0.0004) {
-        requestAnimationFrame(updateRocketAnimation);
-      } else {
-        isTicking = false;
-      }
     };
+    window.addEventListener('scroll', updateFlight, { passive: true });
+    window.addEventListener('resize', () => { pathLen = path.getTotalLength?.() || 0; updateFlight(); });
+    updateFlight();
 
-    const handleFlightScroll = () => {
-      targetProgress = calculateFlightProgress();
-      if (!isTicking) {
-        isTicking = true;
-        requestAnimationFrame(updateRocketAnimation);
-      }
-    };
-
-    window.addEventListener('scroll', handleFlightScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      try {
-        totalPathLength = flightRoute.getTotalLength();
-        if (flightRouteProgress) {
-          flightRouteProgress.style.strokeDasharray = `${totalPathLength} ${totalPathLength}`;
-        }
-      } catch (err) {}
-      handleFlightScroll();
-    });
-
-    handleFlightScroll();
-
-    // Clicking milestone pin smoothly brings it into view
-    milestoneStations.forEach(station => {
-      const pin = station.querySelector('.station-planet-pin');
-      if (pin) {
-        pin.addEventListener('click', () => {
-          station.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-      }
-    });
+    stations.forEach(st => st.querySelector('.station-planet-pin')?.addEventListener('click', () => {
+      st.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }));
   }
 
-  // ==========================================================================
-  // 3c. SECTION 3: PROJECT PLANET CARDS & DETAILS MODAL CONTROLLER
-  // ==========================================================================
-  const planetCards = document.querySelectorAll('.project-planet-card');
-  const modalBackdrop = document.getElementById('projectModalBackdrop');
-  const modalCloseBtn = document.getElementById('modalCloseBtn');
-  const modalCategory = document.getElementById('modalCategory');
-  const modalRole = document.getElementById('modalRole');
-  const modalTitle = document.getElementById('modalProjectTitle');
-  const modalTechPills = document.getElementById('modalTechPills');
-  const modalBulletsList = document.getElementById('modalBulletsList');
+  // 6. PROJECT MODAL CONTROLLER
+  const modal = document.getElementById('projectModalBackdrop');
+  let lastActiveCard = null;
 
-  const openProjectModal = (card) => {
-    if (!modalBackdrop || !card) return;
-
-    const titleEl = card.querySelector('.planet-title');
-    const hiddenData = card.querySelector('.planet-hidden-data');
-    if (!hiddenData) return;
-
-    const roleEl = hiddenData.querySelector('.data-role');
-    const categoryEl = hiddenData.querySelector('.data-category');
-    const techEl = hiddenData.querySelector('.data-tech');
-    const bulletsEl = hiddenData.querySelector('.data-bullets');
-
-    if (modalTitle && titleEl) modalTitle.textContent = titleEl.textContent;
-    if (modalCategory && categoryEl) modalCategory.textContent = categoryEl.textContent;
-    if (modalRole && roleEl) modalRole.textContent = roleEl.textContent;
-
-    if (modalTechPills && techEl) {
-      modalTechPills.innerHTML = techEl.innerHTML;
-    }
-
-    if (modalBulletsList && bulletsEl) {
-      modalBulletsList.innerHTML = bulletsEl.innerHTML;
-    }
-
-    modalBackdrop.classList.add('open');
-    modalBackdrop.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    modalCloseBtn?.focus();
-  };
-
-  const closeProjectModal = () => {
-    if (!modalBackdrop) return;
-    modalBackdrop.classList.remove('open');
-    modalBackdrop.setAttribute('aria-hidden', 'true');
+  const closeModal = () => {
+    modal?.classList.remove('open');
+    modal?.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastActiveCard) {
+      lastActiveCard.focus();
+      lastActiveCard = null;
+    }
   };
 
-  planetCards.forEach(card => {
-    card.addEventListener('click', () => openProjectModal(card));
+  document.querySelectorAll('.project-planet-card').forEach(card => {
+    const handleOpen = () => {
+      if (!modal) return;
+      lastActiveCard = card;
+      const title = card.querySelector('.planet-title')?.textContent;
+      const data = card.querySelector('.planet-hidden-data');
+      if (title) document.getElementById('modalProjectTitle').textContent = title;
+      if (data) {
+        [
+          ['modalCategory', '.data-category'],
+          ['modalRole', '.data-role'],
+          ['modalTechPills', '.data-tech'],
+          ['modalBulletsList', '.data-bullets']
+        ].forEach(([tId, sCls]) => {
+          const el = document.getElementById(tId);
+          const src = data.querySelector(sCls);
+          if (el && src) el.innerHTML = src.innerHTML;
+        });
+      }
+      // Populate project photo into modal
+      const cardImg = card.querySelector('.planet-image-frame img');
+      const modalImg = document.getElementById('modalImg');
+      const modalEmpty = document.getElementById('modalEmptyBanner');
+      if (cardImg && modalImg) {
+        modalImg.src = cardImg.src;
+        modalImg.alt = cardImg.alt;
+        modalImg.style.display = 'block';
+        if (modalEmpty) modalEmpty.style.display = 'none';
+      }
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modalCloseBtn')?.focus();
+    };
+
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) {
+        e.preventDefault();
+      }
+      handleOpen();
+    });
+
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openProjectModal(card);
+        handleOpen();
       }
     });
   });
 
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener('click', closeProjectModal);
-  }
+  document.getElementById('modalCloseBtn')?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => e.target === modal && closeModal());
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && modal?.classList.contains('open') && closeModal());
 
-  if (modalBackdrop) {
-    modalBackdrop.addEventListener('click', (e) => {
-      if (e.target === modalBackdrop) {
-        closeProjectModal();
+  // 7. EXTRACURRICULARS SPLIT-PANE TABS & SWIPER CAROUSELS
+  // Helper to extract numeric suffix for sorting: no number = 0, then -1, -2, -3, etc.
+  const getPhotoOrderNumber = (filename) => {
+    const match = filename.match(/-(\d+)\.[^.]+$/i);
+    return match ? parseInt(match[1], 10) : 0;
+  };
+
+  // Master catalog of leadership & community photos
+  // Adding a new photo only requires adding one entry to this list!
+  const LEADERSHIP_PHOTO_CATALOG = [
+    // Cisco NetConnect PUP (4 banner photos)
+    { org: 'cisco', file: 'CiscoNetConnect.jpg', alt: 'Cisco NetConnect PUP Community Relations Team', position: 'center 30%' },
+    { org: 'cisco', file: 'CiscoNetConnect-2.jpg', alt: 'Cisco NetConnect PUP Tech Workshop', position: 'center 25%' },
+    { org: 'cisco', file: 'CiscoNetConnect-3.jpg', alt: 'Cisco NetConnect PUP Student Networking Session', position: 'center 25%' },
+    { org: 'cisco', file: 'CiscoNetConnect-4.jpg', alt: 'Cisco NetConnect PUP Community Relations Leadership & Members', position: 'center 25%' },
+
+    // GDG on Campus PUP (2 banner photos)
+    { org: 'gdg', file: 'GDG.jpg', alt: 'GDG on Campus PUP Strategic Planning & Dev', position: 'center 25%' },
+    { org: 'gdg', file: 'GDG-2.jpg', alt: 'GDG on Campus PUP DevFest & Community Cadets', position: 'center center' },
+
+    // IBITS (3 banner photos)
+    { org: 'ibits', file: 'IBITS-1.jpg', alt: 'IBITS Student Leaders Strategic Planning', position: 'center 25%' },
+    { org: 'ibits', file: 'IBITS-2.jpg', alt: 'IBITS Executive Committee & Academic Planning', position: 'center 25%' },
+    { org: 'ibits', file: 'IBITS-3.jpg', alt: 'IBITS Programs and Activities Committee Team', position: 'center 20%' },
+
+    // AWS Cloud Club PUP (1 portrait photo + 2 landscape photos)
+    { org: 'aws', slot: 'portrait', file: 'AWS.jpg', alt: 'Mark Christian Alejos - Documents Head at AWS Cloud Club PUP', position: 'center 20%' },
+    { org: 'aws', slot: 'landscape', file: 'AWS-2.JPG', alt: 'AWS Cloud Club PUP Team & Hands-on Lab Session', position: 'center 35%' },
+    { org: 'aws', slot: 'landscape', file: 'AWS-3.jpg', alt: 'AWS Cloud Club PUP Cloud Day Conference', position: 'center 25%' }
+  ];
+
+  // Dynamically assemble leadershipMedia from catalog, sorted by numeric suffix
+  const buildLeadershipMedia = (catalog) => {
+    const media = {
+      'panel-cisco': { banner: [] },
+      'panel-gdg': { banner: [] },
+      'panel-ibits': { banner: [] },
+      'panel-aws': { portraitSingle: null, landscape: [] }
+    };
+
+    const sorted = [...catalog].sort((a, b) => getPhotoOrderNumber(a.file) - getPhotoOrderNumber(b.file));
+
+    sorted.forEach((item) => {
+      const photoObj = {
+        src: `assets/images/${item.file}`,
+        alt: item.alt || '',
+        position: item.position || 'center center'
+      };
+
+      if (item.org === 'cisco') {
+        media['panel-cisco'].banner.push(photoObj);
+      } else if (item.org === 'gdg') {
+        media['panel-gdg'].banner.push(photoObj);
+      } else if (item.org === 'ibits') {
+        media['panel-ibits'].banner.push(photoObj);
+      } else if (item.org === 'aws') {
+        if (item.slot === 'portrait' || item.file.toLowerCase().startsWith('aws.')) {
+          media['panel-aws'].portraitSingle = photoObj;
+        } else {
+          media['panel-aws'].landscape.push(photoObj);
+        }
       }
     });
-  }
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalBackdrop?.classList.contains('open')) {
-      closeProjectModal();
+    return media;
+  };
+
+  const leadershipMedia = buildLeadershipMedia(LEADERSHIP_PHOTO_CATALOG);
+
+  const tabs = document.querySelectorAll('.extra-tab-btn');
+  const panels = document.querySelectorAll('.extra-tab-panel');
+  const viewportContainer = document.querySelector('.extra-viewport-container');
+  let activeCarousels = [];
+
+  const destroyActiveCarousels = () => {
+    activeCarousels.forEach(instance => {
+      if (instance && typeof instance.destroy === 'function') {
+        try {
+          instance.destroy(true, true);
+        } catch (err) {
+          console.warn('Swiper destroy caught:', err);
+        }
+      }
+    });
+    activeCarousels = [];
+  };
+
+  const initCarousel = (el, photos, options = {}) => {
+    const validPhotos = photos || [];
+    if (!el || validPhotos.length === 0) {
+      if (el) el.style.display = 'none';
+      return null;
     }
+
+    const isSingle = validPhotos.length === 1;
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Preserve existing tag badge if present in the container
+    const tagBadge = el.querySelector('.banner-tag-badge');
+
+    // Build Swiper DOM structure
+    const swiperEl = document.createElement('div');
+    swiperEl.className = 'swiper';
+
+    const wrapperEl = document.createElement('div');
+    wrapperEl.className = 'swiper-wrapper';
+
+    validPhotos.forEach((photo, idx) => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.alt = photo.alt || '';
+      if (photo.position) {
+        img.style.objectPosition = photo.position;
+      }
+      img.loading = idx === 0 ? 'eager' : 'lazy';
+
+      slide.appendChild(img);
+      wrapperEl.appendChild(slide);
+    });
+
+    swiperEl.appendChild(wrapperEl);
+
+    let paginationEl = null;
+    if (!isSingle) {
+      paginationEl = document.createElement('div');
+      paginationEl.className = 'swiper-pagination';
+      swiperEl.appendChild(paginationEl);
+    }
+
+    // Clean previous swiper element if any
+    const existingSwiper = el.querySelector('.swiper');
+    if (existingSwiper) existingSwiper.remove();
+
+    el.appendChild(swiperEl);
+    if (tagBadge && tagBadge.parentElement !== el) {
+      el.appendChild(tagBadge);
+    }
+    el.style.display = '';
+
+    if (typeof Swiper === 'undefined') {
+      return null;
+    }
+
+    const swiperConfig = {
+      loop: !isSingle,
+      speed: 500,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      a11y: true,
+      keyboard: {
+        enabled: true,
+        onlyInViewport: true
+      }
+    };
+
+    if (!isSingle && !prefersReduced) {
+      swiperConfig.autoplay = {
+        delay: options.delay || 4000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      };
+    } else {
+      swiperConfig.autoplay = false;
+    }
+
+    if (!isSingle && paginationEl) {
+      swiperConfig.pagination = {
+        el: paginationEl,
+        clickable: true
+      };
+    }
+
+    const swiperInstance = new Swiper(swiperEl, swiperConfig);
+    activeCarousels.push(swiperInstance);
+    return swiperInstance;
+  };
+
+  const renderCarouselsForPanel = (panel) => {
+    if (!panel) return;
+    destroyActiveCarousels();
+
+    const panelId = panel.id;
+    let media = leadershipMedia[panelId];
+    if (panel.dataset.media) {
+      try {
+        media = JSON.parse(panel.dataset.media);
+      } catch (e) {
+        console.warn('Invalid JSON in data-media for', panelId, e);
+      }
+    }
+    if (!media) return;
+
+    // Banner slot (Cisco, GDG, IBITS)
+    const bannerSlot = panel.querySelector('[data-carousel-slot="banner"]');
+    if (bannerSlot) {
+      if (media.banner && media.banner.length > 0) {
+        initCarousel(bannerSlot, media.banner, { delay: 4000 });
+      } else {
+        bannerSlot.style.display = 'none';
+      }
+    }
+
+    // AWS Portrait slot: single photo only, NO carousel, NO dots, NO autoplay
+    const portraitSlot = panel.querySelector('.extra-portrait-frame');
+    if (portraitSlot) {
+      if (media.portraitSingle) {
+        let singleImg = portraitSlot.querySelector('img.extra-portrait-img');
+        if (!singleImg) {
+          singleImg = document.createElement('img');
+          singleImg.className = 'extra-portrait-img';
+          portraitSlot.prepend(singleImg);
+        }
+        singleImg.src = media.portraitSingle.src;
+        singleImg.alt = media.portraitSingle.alt || '';
+        if (media.portraitSingle.position) {
+          singleImg.style.objectPosition = media.portraitSingle.position;
+        }
+        portraitSlot.style.display = '';
+      } else if (!media.portrait || media.portrait.length === 0) {
+        portraitSlot.style.display = 'none';
+      }
+    }
+
+    // Landscape slot (AWS left column below bullets)
+    const landscapeSlot = panel.querySelector('[data-carousel-slot="landscape"]');
+    if (landscapeSlot) {
+      if (media.landscape && media.landscape.length > 0) {
+        initCarousel(landscapeSlot, media.landscape, { delay: 4500 });
+      } else {
+        landscapeSlot.style.display = 'none';
+      }
+    }
+  };
+
+  const updatePanelRadius = (index) => {
+    if (!viewportContainer) return;
+    viewportContainer.classList.toggle('tab-first-active', index === 0);
+    viewportContainer.classList.toggle('tab-last-active', index === tabs.length - 1);
+  };
+
+  const updateLayoutModifier = (targetPanel) => {
+    if (!targetPanel || !viewportContainer) return;
+    const media = leadershipMedia[targetPanel.id];
+    let isPortrait = false;
+    if (media && (media.portraitSingle || media.portrait || media.landscape)) {
+      isPortrait = true;
+    } else {
+      const layout = targetPanel.getAttribute('data-layout') || 'banner';
+      isPortrait = layout === 'portrait-right' || layout === 'portrait';
+    }
+    targetPanel.classList.toggle('is-portrait', isPortrait);
+    targetPanel.classList.toggle('is-banner', !isPortrait);
+    viewportContainer.classList.toggle('is-portrait', isPortrait);
+    viewportContainer.classList.toggle('is-banner', !isPortrait);
+  };
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-tab-target');
+      const targetPanel = document.getElementById(targetId);
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+        // Reset scroll position on tab switch
+        const panelBody = targetPanel.querySelector('.extra-panel-body');
+        if (panelBody) {
+          panelBody.scrollTop = 0;
+        }
+        targetPanel.scrollTop = 0;
+        if (viewportContainer) {
+          viewportContainer.scrollTop = 0;
+        }
+        updateLayoutModifier(targetPanel);
+        renderCarouselsForPanel(targetPanel);
+      }
+      updatePanelRadius(i);
+    });
+
+    tab.addEventListener('keydown', (e) => {
+      const dir = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowUp' || e.key === 'ArrowLeft') ? -1 : 0;
+      if (dir) {
+        e.preventDefault();
+        const next = (i + dir + tabs.length) % tabs.length;
+        tabs[next].focus();
+        tabs[next].click();
+      }
+    });
   });
 
-  // ==========================================================================
-  // 3d. SECTION 4: EXTRACURRICULARS SPLIT-PANE TABS CONTROLLER
-  // ==========================================================================
-  const extraTabButtons = document.querySelectorAll('.extra-tab-btn');
-  const extraTabPanels = document.querySelectorAll('.extra-tab-panel');
-
-  if (extraTabButtons.length && extraTabPanels.length) {
-    extraTabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-tab-target');
-        if (!targetId) return;
-
-        // Deactivate all tab buttons & panels
-        extraTabButtons.forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-
-        extraTabPanels.forEach(p => {
-          p.classList.remove('active');
-        });
-
-        // Activate selected tab button & panel
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-
-        const activePanel = document.getElementById(targetId);
-        if (activePanel) {
-          activePanel.classList.add('active');
-        }
-      });
-
-      // Keyboard navigation support for tabs (ArrowUp, ArrowDown)
-      btn.addEventListener('keydown', (e) => {
-        const buttonsArray = Array.from(extraTabButtons);
-        const currentIndex = buttonsArray.indexOf(btn);
-
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-          e.preventDefault();
-          const nextIndex = (currentIndex + 1) % buttonsArray.length;
-          buttonsArray[nextIndex].focus();
-          buttonsArray[nextIndex].click();
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-          e.preventDefault();
-          const prevIndex = (currentIndex - 1 + buttonsArray.length) % buttonsArray.length;
-          buttonsArray[prevIndex].focus();
-          buttonsArray[prevIndex].click();
-        }
-      });
-    });
+  // Initialize layout modifier and carousels on initial active panel
+  const initialActive = document.querySelector('.extra-tab-panel.active') || panels[0];
+  if (initialActive) {
+    updateLayoutModifier(initialActive);
+    if (typeof Swiper !== 'undefined') {
+      renderCarouselsForPanel(initialActive);
+    } else {
+      window.addEventListener('load', () => renderCarouselsForPanel(initialActive));
+    }
   }
 
-  // 4. BACK TO TOP BUTTON
-  const backToTopBtn = document.getElementById('back-to-top');
-  if (backToTopBtn) {
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-
-  // 5. TOAST NOTIFICATION UTILITY
+  // 8. TOAST NOTIFICATION UTILITY
+  const toastContainer = document.getElementById('toast-container');
   const showToast = (title, message) => {
-    const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) return;
-
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.innerHTML = `
-      <div class="toast-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-      </div>
-      <div class="toast-content">
-        <div class="toast-title">${title}</div>
-        <div class="toast-text">${message}</div>
-      </div>
+      <div class="toast-icon">✓</div>
+      <div class="toast-content"><div class="toast-title">${title}</div><div class="toast-text">${message}</div></div>
     `;
-
     toastContainer.appendChild(toast);
-
-    // Trigger animation in next tick
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 20);
-
-    // Remove toast after 4 seconds
+    requestAnimationFrame(() => toast.classList.add('show'));
     setTimeout(() => {
       toast.classList.remove('show');
-      setTimeout(() => {
-        toast.remove();
-      }, 400);
+      setTimeout(() => toast.remove(), 400);
     }, 4000);
   };
 
-  // 6. CONTACT FORM SUBMISSION & VALIDATION
+  // 9. CONTACT FORM SUBMISSION & VALIDATION
   const contactForm = document.getElementById('contact-form');
   const submitBtn = document.getElementById('btn-submit-contact');
+  contactForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name')?.value.trim();
+    const email = document.getElementById('email')?.value.trim();
+    const msg = document.getElementById('message')?.value.trim();
 
-  if (contactForm) {
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const subjectInput = document.getElementById('subject');
-    const messageInput = document.getElementById('message');
+    if (!name || !email || !msg) return showToast('Please Complete Fields', 'Please enter your name, email, and message.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showToast('Invalid Email', 'Please enter a valid email address.');
 
-    const validateEmail = (email) => {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    };
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      const original = submitBtn.innerHTML;
+      submitBtn.innerHTML = `<span>MESSAGE SENT!</span>`;
+      showToast('Message Sent Successfully!', 'Thank you! Your message has been received.');
+      contactForm.reset();
+      setTimeout(() => { submitBtn.innerHTML = original; submitBtn.disabled = false; }, 3000);
+    }
+  });
 
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nameVal = nameInput ? nameInput.value.trim() : '';
-      const emailVal = emailInput ? emailInput.value.trim() : '';
-      const subjectVal = subjectInput ? subjectInput.value.trim() : '';
-      const messageVal = messageInput ? messageInput.value.trim() : '';
-
-      if (!nameVal || !emailVal || !messageVal) {
-        showToast('Please Complete Fields', 'Please enter your name, email, and message.');
-        return;
-      }
-
-      if (!validateEmail(emailVal)) {
-        showToast('Invalid Email', 'Please enter a valid email address.');
-        return;
-      }
-
-      // Successful submission
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        const originalContent = submitBtn.innerHTML;
-        submitBtn.innerHTML = `
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>MESSAGE SENT!</span>
-        `;
-
-        showToast('Message Sent Successfully!', 'Thank you! Your message has been received.');
-        contactForm.reset();
-
-        setTimeout(() => {
-          submitBtn.innerHTML = originalContent;
-          submitBtn.disabled = false;
-        }, 3000);
-      } else {
-        showToast('Message Sent Successfully!', 'Thank you! Your message has been received.');
-        contactForm.reset();
-      }
-    });
-  }
-
-  // 7. CONTACT CARDS COPY TO CLIPBOARD
-  const copyButtons = document.querySelectorAll('.contact-copy-btn');
-  copyButtons.forEach(btn => {
+  // 10. CONTACT CARDS CLIPBOARD COPY
+  document.querySelectorAll('.contact-copy-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
-      const targetId = btn.getAttribute('data-copy-target');
-      const targetEl = document.getElementById(targetId);
-      if (!targetEl) return;
-
-      const textToCopy = targetEl.textContent.trim();
-      const applyCopiedState = () => {
-        btn.classList.add('copied');
-        showToast('Copied to Clipboard!', textToCopy);
-
-        setTimeout(() => {
-          btn.classList.remove('copied');
-        }, 2000);
-      };
-
+      const target = document.getElementById(btn.getAttribute('data-copy-target'));
+      if (!target) return;
+      const text = target.textContent.trim();
       try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(textToCopy);
-          applyCopiedState();
-        } else {
-          throw new Error('Clipboard API not available');
-        }
-      } catch (err) {
-        // Fallback for non-secure contexts or older browsers
-        try {
-          const textarea = document.createElement('textarea');
-          textarea.value = textToCopy;
-          textarea.style.position = 'fixed';
-          textarea.style.left = '-9999px';
-          document.body.appendChild(textarea);
-          textarea.focus();
-          textarea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textarea);
-          applyCopiedState();
-        } catch (fallbackErr) {
-          console.error('Failed to copy to clipboard:', fallbackErr);
-        }
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const input = document.createElement('input');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
       }
+      btn.classList.add('copied');
+      showToast('Copied to Clipboard!', text);
+      setTimeout(() => btn.classList.remove('copied'), 2000);
     });
   });
 });
