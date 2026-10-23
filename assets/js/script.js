@@ -3,6 +3,35 @@
  * Streamlined & High-Performance Script
  */
 
+// 0. PRELOADER (RADAR LOADER)
+(function () {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    let dismissed = false;
+    const hidePreloader = () => {
+      if (dismissed) return;
+      dismissed = true;
+      preloader.classList.add('fade-out');
+      setTimeout(() => {
+        if (preloader.parentNode) {
+          preloader.parentNode.removeChild(preloader);
+        }
+      }, 700);
+    };
+
+    if (document.readyState === 'complete') {
+      setTimeout(hidePreloader, 800);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(hidePreloader, 800);
+      });
+    }
+
+    // Safety fallback: maximum 2800ms so site is never blocked
+    setTimeout(hidePreloader, 2800);
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. THEME SWITCHER
   const themeToggle = document.getElementById('theme-toggle');
@@ -546,8 +575,13 @@ document.addEventListener('DOMContentLoaded', () => {
         input.remove();
       }
       btn.classList.add('copied');
+      const label = btn.querySelector('.copy-btn-label');
+      if (label) label.textContent = 'Copied!';
       showToast('Copied to Clipboard!', text);
-      setTimeout(() => btn.classList.remove('copied'), 2000);
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        if (label) label.textContent = 'Copy';
+      }, 2000);
     });
   });
 });
