@@ -56,6 +56,8 @@ No build tools or package managers required.
    - Open `index.html` directly in any web browser, or
    - Right-click `index.html` in VS Code and select **"Open with Live Server"**.
 
+3. Or simply open using this link
+   - https://responsive-port-nu.vercel.app/#contact
 ---
 
 ## 📄 License
