@@ -33,17 +33,14 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. THEME SWITCHER
-  const themeToggle = document.getElementById('theme-toggle');
-  const setTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio-theme', theme);
-  };
-  const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
-  setTheme(savedTheme);
-  themeToggle?.addEventListener('click', () => {
-    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  });
+  // 1. THEME LOCK (Permanent Dark Mode) & SCROLL REVEAL ACTIVATION
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.documentElement.classList.add('js-reveal-active');
+  try {
+    localStorage.removeItem('portfolio-theme');
+  } catch {
+    // Ignore storage errors in restricted contexts
+  }
 
   // 2. MOBILE NAVIGATION DRAWER
   const mobileToggle = document.getElementById('mobile-toggle');
@@ -73,9 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
   updateUnifiedNavWidth();
   window.addEventListener('resize', updateUnifiedNavWidth);
 
-  // 4. SCROLL HANDLERS (Navbar, Progress Bar & Active Link Spy)
+  // 4. SCROLL HANDLERS (Navbar, Progress Bar, Back-To-Top & Active Link Spy)
   const sections = document.querySelectorAll('section[id]');
   const allNavLinks = document.querySelectorAll('.nav-link');
+  const launchRocketContainer = document.getElementById('launchRocketContainer');
+  const backToTop = document.getElementById('backToTop');
+  const rocketSpeechBubble = document.getElementById('rocketSpeechBubble');
+  const bubbleText = document.getElementById('bubbleText');
+  const launchProgressBar = document.getElementById('launchProgressBar');
+  const launchThrustParticles = document.getElementById('launchThrustParticles');
+
+  let fuelTimer = null;
+  let isLaunching = false;
 
   const onScroll = () => {
     const scrollY = window.scrollY;
@@ -90,10 +96,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Scroll Progress Indicator Formula: (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+    const scrollTotal = (document.body.scrollHeight || document.documentElement.scrollHeight) - window.innerHeight;
+    const scrollPercent = scrollTotal > 0 ? (scrollY / ((document.body.scrollHeight - window.innerHeight) || scrollTotal)) * 100 : 0;
     if (navProgressBar) {
-      const scrollTotal = (document.body.scrollHeight || document.documentElement.scrollHeight) - window.innerHeight;
-      const scrollPercent = scrollTotal > 0 ? (scrollY / ((document.body.scrollHeight - window.innerHeight) || scrollTotal)) * 100 : 0;
       navProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+    }
+
+    // Floating Launch to Top Rocket Button: Show smoothly after 300px
+    if (launchRocketContainer && !isLaunching) {
+      if (scrollY > 300) {
+        launchRocketContainer.classList.add('visible');
+      } else {
+        launchRocketContainer.classList.remove('visible');
+      }
+
+      const scrollRatio = scrollTotal > 0 ? Math.min(1, Math.max(0, scrollY / scrollTotal)) : 0;
+
+      if (launchProgressBar) {
+        launchProgressBar.style.width = `${(scrollRatio * 100).toFixed(1)}%`;
+      }
+
+      // Check if user reached the last section / bottom of the page
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      const distanceFromBottom = docHeight - (window.innerHeight + scrollY);
+      const isAtBottom = scrollRatio >= 0.88 || distanceFromBottom <= 220;
+
+      if (isAtBottom && scrollY > 300) {
+        launchRocketContainer.classList.add('fully-fueled');
+        if (bubbleText && !launchRocketContainer.matches(':hover') && !isLaunching) {
+          bubbleText.textContent = '100% Fueled! Ready! 🚀';
+        }
+      } else {
+        launchRocketContainer.classList.remove('fully-fueled');
+      }
     }
 
     // Scroll Spy
@@ -106,6 +146,133 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // Hover Interactions: Liquid Fuel Charging & Comic Speech Bubble Copy
+  if (backToTop && bubbleText) {
+    backToTop.addEventListener('mouseenter', () => {
+      if (isLaunching) return;
+      launchRocketContainer?.classList.add('is-hovered');
+
+      const isFueled = launchRocketContainer?.classList.contains('fully-fueled');
+      if (isFueled) {
+        bubbleText.textContent = 'Ready for blastoff! 🚀';
+      } else {
+        bubbleText.textContent = 'Fueling boosters... ⚡';
+        clearTimeout(fuelTimer);
+        // Liquid fuel fills over ~1.2s; update speech bubble when charged
+        fuelTimer = setTimeout(() => {
+          if (!isLaunching) {
+            bubbleText.textContent = 'Ready for blastoff! 🚀';
+          }
+        }, 1100);
+      }
+    });
+
+    backToTop.addEventListener('mouseleave', () => {
+      if (isLaunching) return;
+      launchRocketContainer?.classList.remove('is-hovered');
+      clearTimeout(fuelTimer);
+      if (launchRocketContainer?.classList.contains('fully-fueled')) {
+        bubbleText.textContent = '100% Fueled! Ready! 🚀';
+      } else {
+        bubbleText.textContent = 'Fueling boosters... ⚡';
+      }
+    });
+  }
+
+  // Particle Generation for Thrust / Smoke Burst
+  const triggerThrustBurst = () => {
+    if (!launchThrustParticles) return;
+    launchThrustParticles.innerHTML = '';
+    const particleCount = 14;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('span');
+      p.className = 'thrust-particle';
+      const size = Math.floor(Math.random() * 8) + 5;
+      const angle = (Math.PI / 4) + (Math.random() * (Math.PI / 2)); // downward arc
+      const dist = Math.floor(Math.random() * 45) + 20;
+      const px = Math.cos(angle) * dist * (Math.random() > 0.5 ? 1 : -1);
+      const py = Math.sin(angle) * dist + 15;
+
+      p.style.width = `${size}px`;
+      p.style.height = `${size}px`;
+      p.style.setProperty('--px', `${px}px`);
+      p.style.setProperty('--py', `${py}px`);
+      p.style.animationDelay = `${Math.random() * 0.1}s`;
+      launchThrustParticles.appendChild(p);
+    }
+  };
+
+  // Launch to Top Click Action: Comic Bubble Ignition & Blastoff Flight
+  backToTop?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (isLaunching) return;
+    isLaunching = true;
+    clearTimeout(fuelTimer);
+
+    // Comic speech bubble punchline
+    if (bubbleText) {
+      bubbleText.textContent = 'BLASTOFF! 💨';
+    }
+
+    // Trigger smoke & thruster particle burst
+    triggerThrustBurst();
+
+    // Launch rocket container straight up into the stratosphere
+    launchRocketContainer?.classList.add('launching');
+
+    // Smooth scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    });
+
+    // Reset state cleanly after 1.2s timeout
+    setTimeout(() => {
+      launchRocketContainer?.classList.remove('launching', 'visible', 'fully-fueled', 'is-hovered');
+      if (bubbleText) {
+        bubbleText.textContent = 'Fueling boosters... ⚡';
+      }
+      if (launchThrustParticles) {
+        launchThrustParticles.innerHTML = '';
+      }
+      isLaunching = false;
+      onScroll(); // Re-evaluate scroll position (will remain hidden at top)
+    }, 1200);
+  });
+
+  // 4.1 SCROLL-TRIGGERED SMOOTH SECTION TRANSITIONS (Intersection Observer)
+  const revealSections = document.querySelectorAll('.reveal-on-scroll');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          setTimeout(() => {
+            entry.target.classList.add('transition-complete');
+          }, 950);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.08,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealSections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      // If already in view or above on initial load/reload, reveal immediately
+      if (rect.top < window.innerHeight - 50) {
+        sec.classList.add('is-revealed', 'transition-complete');
+      } else {
+        revealObserver.observe(sec);
+      }
+    });
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    revealSections.forEach(sec => sec.classList.add('is-revealed', 'transition-complete'));
+  }
 
   // 5. EDUCATION TIMELINE: WINDING FLIGHT PATH & ROCKET SCROLL CONTROLLER
   const edu = document.getElementById('education');
