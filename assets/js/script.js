@@ -70,6 +70,54 @@ document.addEventListener('DOMContentLoaded', () => {
   updateUnifiedNavWidth();
   window.addEventListener('resize', updateUnifiedNavWidth);
 
+  // 3.1 HERO ORBIT 8 CELESTIAL STARS: AUTO-CYCLE & INTERACTION CONTROLLER
+  const hobbyStars = document.querySelectorAll('.hobby-star');
+  if (hobbyStars.length > 0) {
+    let currentStarIndex = 0;
+    let starCycleInterval = null;
+    let isUserHoveringStars = false;
+
+    const highlightNextStar = () => {
+      if (isUserHoveringStars) return;
+      hobbyStars.forEach((star, idx) => {
+        star.classList.toggle('is-active', idx === currentStarIndex);
+      });
+      currentStarIndex = (currentStarIndex + 1) % hobbyStars.length;
+    };
+
+    const startStarCycle = () => {
+      if (starCycleInterval) clearInterval(starCycleInterval);
+      starCycleInterval = setInterval(highlightNextStar, 3200);
+    };
+
+    const pauseStarCycle = () => {
+      if (starCycleInterval) clearInterval(starCycleInterval);
+      hobbyStars.forEach(star => star.classList.remove('is-active'));
+    };
+
+    hobbyStars.forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        isUserHoveringStars = true;
+        pauseStarCycle();
+      });
+      star.addEventListener('mouseleave', () => {
+        isUserHoveringStars = false;
+        startStarCycle();
+      });
+      star.addEventListener('focus', () => {
+        isUserHoveringStars = true;
+        pauseStarCycle();
+      });
+      star.addEventListener('blur', () => {
+        isUserHoveringStars = false;
+        startStarCycle();
+      });
+    });
+
+    // Start auto-cycle after initial entrance animation
+    setTimeout(startStarCycle, 1800);
+  }
+
   // 4. SCROLL HANDLERS (Navbar, Progress Bar, Back-To-Top & Active Link Spy)
   const sections = document.querySelectorAll('section[id]');
   const allNavLinks = document.querySelectorAll('.nav-link');

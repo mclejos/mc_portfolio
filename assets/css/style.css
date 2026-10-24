@@ -683,12 +683,14 @@ button, input, textarea {
 }
 
 /* ==========================================================================
-   INTERACTIVE HOBBY STARS (EASTER EGGS WITH TOOLTIPS)
+   INTERACTIVE HOBBY STARS (CONSTELLATION HIERARCHY & TOOLTIPS)
    ========================================================================== */
 .hobby-star {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -698,17 +700,73 @@ button, input, textarea {
   border: none;
   background: transparent;
   padding: 0;
+  border-radius: 50%;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Base Star SVG Icon */
 .hobby-star .star-icon {
-  width: 14px;
-  height: 14px;
-  color: var(--accent-lime);
-  opacity: 0.55;
-  filter: drop-shadow(0 0 5px rgba(212, 249, 56, 0.45));
-  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease, color 0.35s ease;
+  color: var(--accent-lime, #c3ff3c);
+  display: block;
+  flex-shrink: 0;
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease;
   animation: star-twinkle 3.6s ease-in-out infinite;
+}
+
+/* --- 1. CONSTELLATION SIZE HIERARCHY --- */
+/* Large Anchor Stars (Primary Accent — 24px) */
+.hobby-star.star-lg .star-icon,
+.hobby-star.star-2 .star-icon,
+.hobby-star.star-7 .star-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 8px rgba(195, 255, 60, 0.6));
+}
+
+.hobby-star.star-lg .star-ring,
+.hobby-star.star-2 .star-ring,
+.hobby-star.star-7 .star-ring {
+  width: 34px;
+  height: 34px;
+}
+
+/* Medium Highlights (Secondary — 16px) */
+.hobby-star.star-md .star-icon,
+.hobby-star.star-1 .star-icon,
+.hobby-star.star-4 .star-icon,
+.hobby-star.star-6 .star-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 5px rgba(195, 255, 60, 0.4));
+}
+
+.hobby-star.star-md .star-ring,
+.hobby-star.star-1 .star-ring,
+.hobby-star.star-4 .star-ring,
+.hobby-star.star-6 .star-ring {
+  width: 26px;
+  height: 26px;
+}
+
+/* Small Micro Sparkles (Delicate Fillers — 11px) */
+.hobby-star.star-sm .star-icon,
+.hobby-star.star-3 .star-icon,
+.hobby-star.star-5 .star-icon,
+.hobby-star.star-8 .star-icon {
+  width: 11px;
+  height: 11px;
+  opacity: 0.75;
+  filter: drop-shadow(0 0 3px rgba(195, 255, 60, 0.3));
+}
+
+.hobby-star.star-sm .star-ring,
+.hobby-star.star-3 .star-ring,
+.hobby-star.star-5 .star-ring,
+.hobby-star.star-8 .star-ring {
+  width: 20px;
+  height: 20px;
 }
 
 /* Stagger twinkle animations for organic celestial motion across all 8 stars */
@@ -721,48 +779,65 @@ button, input, textarea {
 .hobby-star.star-7 .star-icon { animation-delay: 2.7s; }
 .hobby-star.star-8 .star-icon { animation-delay: 3.15s; }
 
+/* Twinkle relative scaling (+28%) */
 @keyframes star-twinkle {
   0%, 100% {
-    opacity: 0.45;
-    transform: scale(0.95);
-    filter: drop-shadow(0 0 3px rgba(212, 249, 56, 0.35));
+    transform: scale(1);
   }
   50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 9px rgba(212, 249, 56, 0.75));
+    transform: scale(1.28);
   }
 }
 
 .hobby-star .star-ring {
   position: absolute;
-  width: 24px;
-  height: 24px;
   border-radius: 50%;
   border: 1px solid transparent;
   pointer-events: none;
   transition: all 0.35s ease;
 }
 
-/* Hover & Focus state: Star brightens with vibrant lime glow */
+/* Hover, Focus & Active state: Star brightens with vibrant lime glow */
 .hobby-star:hover,
-.hobby-star:focus-visible {
-  transform: scale(1.22);
+.hobby-star:focus-visible,
+.hobby-star.is-active {
+  transform: scale(1.15);
+  z-index: 25;
 }
 
 .hobby-star:hover .star-icon,
-.hobby-star:focus-visible .star-icon {
+.hobby-star:focus-visible .star-icon,
+.hobby-star.is-active .star-icon {
   opacity: 1;
   color: #ffffff;
-  transform: scale(1.25) rotate(15deg);
-  filter: drop-shadow(0 0 10px var(--accent-lime)) drop-shadow(0 0 20px rgba(212, 255, 0, 0.9));
+  transform: scale(1.28) rotate(15deg);
   animation: none;
 }
 
+/* Sized hover glow */
+.hobby-star.star-lg:hover .star-icon,
+.hobby-star.star-lg:focus-visible .star-icon,
+.hobby-star.star-lg.is-active .star-icon {
+  filter: drop-shadow(0 0 10px #c3ff3c) drop-shadow(0 0 20px rgba(195, 255, 60, 0.85));
+}
+
+.hobby-star.star-md:hover .star-icon,
+.hobby-star.star-md:focus-visible .star-icon,
+.hobby-star.star-md.is-active .star-icon {
+  filter: drop-shadow(0 0 8px #c3ff3c) drop-shadow(0 0 16px rgba(195, 255, 60, 0.75));
+}
+
+.hobby-star.star-sm:hover .star-icon,
+.hobby-star.star-sm:focus-visible .star-icon,
+.hobby-star.star-sm.is-active .star-icon {
+  filter: drop-shadow(0 0 6px #c3ff3c) drop-shadow(0 0 12px rgba(195, 255, 60, 0.65));
+}
+
 .hobby-star:hover .star-ring,
-.hobby-star:focus-visible .star-ring {
-  border-color: rgba(212, 249, 56, 0.6);
-  box-shadow: 0 0 12px rgba(212, 249, 56, 0.4);
+.hobby-star:focus-visible .star-ring,
+.hobby-star.is-active .star-ring {
+  border-color: rgba(195, 255, 60, 0.65);
+  box-shadow: 0 0 14px rgba(195, 255, 60, 0.45);
   animation: pulse-ring 1.8s infinite;
 }
 
@@ -772,10 +847,11 @@ button, input, textarea {
   100% { transform: scale(0.9); opacity: 0.9; }
 }
 
-/* Monospace Pill Tooltip */
+/* Monospace Pill Tooltip (Dimensions & Layout UNTOUCHED, only position offset adjusted) */
 .hobby-tooltip {
   position: absolute;
-  bottom: calc(100% + 9px);
+  bottom: calc(100% + 8px);
+  margin-bottom: 2px;
   left: 50%;
   transform: translateX(-50%) translateY(6px);
   opacity: 0;
@@ -799,7 +875,7 @@ button, input, textarea {
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               visibility 0.3s ease;
-  z-index: 25;
+  z-index: 30;
 }
 
 .hobby-tooltip .tooltip-dot {
@@ -839,32 +915,31 @@ button, input, textarea {
   letter-spacing: 0.3px;
 }
 
-
-
-/* Tooltip Reveal on Hover & Focus */
+/* Tooltip Reveal on Hover, Focus & Active */
 .hobby-star:hover .hobby-tooltip,
-.hobby-star:focus-visible .hobby-tooltip {
+.hobby-star:focus-visible .hobby-tooltip,
+.hobby-star.is-active .hobby-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(0);
 }
 
-/* Precise Celestial Coordinate Positions across Elliptical Orbits */
-/* 1. JavaScript (Upper-Left on Ellipse 1) */
+/* Precise Celestial Coordinate Positions across Elliptical Orbits (Centered for 44px Hitbox) */
+/* 1. Pickleball (Upper-Left on Ellipse 1) */
 .hobby-star.star-1 {
-  top: 40px;
-  left: 85px;
+  top: 33px;
+  left: 78px;
 }
 
-/* 2. Python (Upper-Right on Ellipse 2) */
+/* 2. Photography (Upper-Right on Ellipse 2) */
 .hobby-star.star-2 {
-  top: 36px;
-  right: 94px;
+  top: 29px;
+  right: 87px;
 }
 
-/* 3. Java & 4. C++ (Right Flank) */
-.hobby-star.star-3 { top: 130px; right: 24px; }
-.hobby-star.star-4 { bottom: 138px; right: 28px; }
+/* 3. Games & 4. Community (Right Flank) */
+.hobby-star.star-3 { top: 123px; right: 17px; }
+.hobby-star.star-4 { bottom: 131px; right: 21px; }
 
 .hobby-star.star-3 .hobby-tooltip,
 .hobby-star.star-4 .hobby-tooltip {
@@ -874,18 +949,20 @@ button, input, textarea {
 }
 .hobby-star.star-3:hover .hobby-tooltip,
 .hobby-star.star-3:focus-visible .hobby-tooltip,
+.hobby-star.star-3.is-active .hobby-tooltip,
 .hobby-star.star-4:hover .hobby-tooltip,
-.hobby-star.star-4:focus-visible .hobby-tooltip {
+.hobby-star.star-4:focus-visible .hobby-tooltip,
+.hobby-star.star-4.is-active .hobby-tooltip {
   transform: translateX(0) translateY(0);
 }
 
-/* 5. R & 6. MySQL (Bottom Curve) */
-.hobby-star.star-5 { bottom: 56px; right: 92px; }
-.hobby-star.star-6 { bottom: 60px; left: 88px; }
+/* 5. AI & 6. Music (Bottom Curve) */
+.hobby-star.star-5 { bottom: 49px; right: 85px; }
+.hobby-star.star-6 { bottom: 53px; left: 81px; }
 
-/* 7. Figma & 8. Cisco Packet Tracer (Left Flank) */
-.hobby-star.star-7 { bottom: 148px; left: 22px; }
-.hobby-star.star-8 { top: 124px; left: 30px; }
+/* 7. Movies & 8. Fav Color (Left Flank) */
+.hobby-star.star-7 { bottom: 141px; left: 15px; }
+.hobby-star.star-8 { top: 117px; left: 23px; }
 
 .hobby-star.star-7 .hobby-tooltip,
 .hobby-star.star-8 .hobby-tooltip {
@@ -894,8 +971,10 @@ button, input, textarea {
 }
 .hobby-star.star-7:hover .hobby-tooltip,
 .hobby-star.star-7:focus-visible .hobby-tooltip,
+.hobby-star.star-7.is-active .hobby-tooltip,
 .hobby-star.star-8:hover .hobby-tooltip,
-.hobby-star.star-8:focus-visible .hobby-tooltip {
+.hobby-star.star-8:focus-visible .hobby-tooltip,
+.hobby-star.star-8.is-active .hobby-tooltip {
   transform: translateX(0) translateY(0);
 }
 
@@ -3415,15 +3494,15 @@ a.contact-card-value:hover {
     height: 230px;
   }
 
-  /* Hero Orbit 8 Tech Stars Responsive Positions (360x330 container) */
-  .hobby-star.star-1 { top: 24px; left: 56px; }
-  .hobby-star.star-2 { top: 22px; right: 58px; }
-  .hobby-star.star-3 { top: 95px; right: 12px; }
-  .hobby-star.star-4 { bottom: 96px; right: 14px; }
-  .hobby-star.star-5 { bottom: 34px; right: 54px; }
-  .hobby-star.star-6 { bottom: 36px; left: 52px; }
-  .hobby-star.star-7 { bottom: 104px; left: 12px; }
-  .hobby-star.star-8 { top: 86px; left: 14px; }
+  /* Hero Orbit 8 Tech Stars Responsive Positions (360x330 container with 44px hitbox) */
+  .hobby-star.star-1 { top: 17px; left: 49px; }
+  .hobby-star.star-2 { top: 15px; right: 51px; }
+  .hobby-star.star-3 { top: 88px; right: 5px; }
+  .hobby-star.star-4 { bottom: 89px; right: 7px; }
+  .hobby-star.star-5 { bottom: 27px; right: 47px; }
+  .hobby-star.star-6 { bottom: 29px; left: 45px; }
+  .hobby-star.star-7 { bottom: 97px; left: 5px; }
+  .hobby-star.star-8 { top: 79px; left: 7px; }
 
   .footer-content {
     flex-direction: column;
